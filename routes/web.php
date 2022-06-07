@@ -18,4 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/test', 'App\Http\Controllers\Web\Students\StudentController@getForm')->name('index');
-Route::post('/test', 'App\Http\Controllers\Web\Students\StudentController@login')->name('indep');
+Route::post('/test', 'App\Http\Controllers\Web\Students\StudentController@Studentauthorize')->name('indep');
+Route::get('/testlogin', 'App\Http\Controllers\Web\Students\StudentController@StudentLoginForm')->name('StudentLoginForm');
+Route::post('/testlogin', 'App\Http\Controllers\Web\Students\StudentController@StudentLogin')->name('StudentLogin');

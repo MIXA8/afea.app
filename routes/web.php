@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', 'App\Http\Controllers\Web\Students\StudentController@getForm')->name('index');
-Route::post('/test', 'App\Http\Controllers\Web\Students\StudentController@Studentauthorize')->name('indep');
-Route::get('/testlogin', 'App\Http\Controllers\Web\Students\StudentController@StudentLoginForm')->name('StudentLoginForm');
-Route::post('/testlogin', 'App\Http\Controllers\Web\Students\StudentController@StudentLogin')->name('StudentLogin');
+Route::get('/test', 'App\Http\Controllers\Web\Workers\WorkerController@getForm')->name('index');
+Route::post('/test', 'App\Http\Controllers\Web\Workers\WorkerController@Workerauthorize')->name('indep');
+Route::get('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('WorkerLoginForm');
+Route::post('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('WorkerLogin');

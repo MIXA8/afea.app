@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Students\StudentApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+Route::post('student/register', [StudentApiController::class, 'Studentauthorize']);
+//Route::post('student/register', 'App\Http\Controllers\API\Students\StudentApiController@Studentauthorize')->name('student.register');
+Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiController@StudentLogin')->name('student.auth');

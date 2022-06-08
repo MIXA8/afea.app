@@ -3,19 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-
-class Student extends Authenticatable
+class Worker extends Authenticatable
 {
     use HasFactory;
-
-    protected $guarded = 'student';
-
+//    protected $guarded = 'worker';
     protected $fillable = [
-        'base_id', 'login', 'password',
+        'name', 'surname', 'patronymic', 'department', 'login', 'password',
     ];
 
     /**
@@ -24,15 +22,16 @@ class Student extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'token',
+        'token', 'profile_id',
     ];
 
     public static function createToken($id)
     {
         $token = Str::random(60);
-        DB::table('students')
+        DB::table('workers')
             ->where('id', $id)
             ->update(['token' => $token]);
         return $token;
     }
+
 }

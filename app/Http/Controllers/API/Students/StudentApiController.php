@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\Students;
+namespace App\Http\Controllers\API\Students;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\students\StudentAPIAuthRequest;
 use App\Http\Requests\Students\StudentAuthRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -10,18 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class StudentController extends Controller
+class StudentApiController extends Controller
 {
-    /*
-     * Авторизации
-     */
-    public function getForm()
-    {
-        return view('student.create');
-    }
-
-
-    public function Studentauthorize(StudentAuthRequest $request)
+    public function Studentauthorize(StudentAPIAuthRequest $request)
     {
         $validated = $request->validated();
         $student = DB::table('base_students')->select('id', 'register')->where('passport', $request->get('passport'))->first();
@@ -54,10 +46,6 @@ class StudentController extends Controller
         );
     }
 
-    public function StudentLoginForm()
-    {
-        return view('student.login');
-    }
 
     public function StudentLogin(Request $request)
     {

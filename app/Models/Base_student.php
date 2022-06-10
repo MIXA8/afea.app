@@ -10,6 +10,11 @@ class Base_student extends Model
 {
     use HasFactory;
 
-    protected $fillable=['passport'];
+    protected $fillable=['passport','group'];
     protected $table='base_students';
+
+    public function group($id)
+    {
+        return $this->hasMany(Group::class,'id');
+    }
 }

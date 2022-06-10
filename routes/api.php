@@ -21,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('student/register', [StudentApiController::class, 'Studentauthorize']);
 //Route::post('student/register', 'App\Http\Controllers\API\Students\StudentApiController@Studentauthorize')->name('student.register');
 Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiController@StudentLogin')->name('student.auth');
+Route::post('student/personal/information', [StudentApiController::class, 'personalInf']);

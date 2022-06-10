@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Students;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentAPIAuthRequest;
 use App\Http\Requests\Students\StudentAuthRequest;
+use App\Models\Base_student;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,5 +64,11 @@ class StudentApiController extends Controller
             'message' => 'Вы успешео взашли на свой аккаунт',
             'token_api' => Student::createToken(Auth::guard('student')->user()->id),
         ], 200);
+    }
+
+    public function personalInf(Request $request){
+        $id=Student::find($request->id)->limit(1)->get('base_id')->first();
+        $information=Base_student::where('id',$id->base_id)->get(['name','surname','patronymic','passport'])->first();
+        return response()->json($information);
     }
 }

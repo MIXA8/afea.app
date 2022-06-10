@@ -9,5 +9,8 @@ class Group extends Model
 {
     use HasFactory;
 
-
+    public function title()
+    {
+        return $this->hasMany(Base_student::class);
+    }
 }

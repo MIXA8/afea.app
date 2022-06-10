@@ -21,3 +21,4 @@ Route::get('/test', 'App\Http\Controllers\Web\Workers\WorkerController@getForm')
 Route::post('/test', 'App\Http\Controllers\Web\Workers\WorkerController@Workerauthorize')->name('indep');
 Route::get('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('WorkerLoginForm');
 Route::post('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('WorkerLogin');
+Route::get('student/personal/information', 'App\Http\Controllers\Web\Students\StudentController@personalInf')->name('asdas');

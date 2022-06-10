@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\Students;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentAPIAuthRequest;
 use App\Http\Requests\Students\StudentAuthRequest;
+use App\Http\Resources\BaseStudentResource;
+use App\Http\Resources\GroupeResource;
 use App\Models\Base_student;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -68,7 +70,9 @@ class StudentApiController extends Controller
 
     public function personalInf(Request $request){
         $id=Student::find($request->id)->limit(1)->get('base_id')->first();
-        $information=Base_student::where('id',$id->base_id)->get(['name','surname','patronymic','passport'])->first();
+//        $information=BaseStudentResource::collection(Base_student::where('id',$id->base_id)->get(['name','surname','patronymic','passport'])->first());
+        $information = new BaseStudentResource(Base_student::where('id',$id->base_id)->first());
+//        dd($information->group()->id);
         return response()->json($information);
     }
 }

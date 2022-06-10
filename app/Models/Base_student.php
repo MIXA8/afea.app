@@ -13,8 +13,7 @@ class Base_student extends Model
     protected $fillable=['passport','group'];
     protected $table='base_students';
 
-    public function group($id)
-    {
-        return $this->hasMany(Group::class,'id');
+    public function title(){
+        return $this->belongsTo(Group::class);
     }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web\Students;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Students\StudentAuthRequest;
+use App\Http\Resources\BaseStudentResource;
 use App\Models\Base_student;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -78,8 +80,16 @@ class StudentController extends Controller
 //        ], 200);
 //    }
 
-        public function personalInf($id){
-            $information=Base_student::find($id)->get();
-//            return response()->json($information);
-        }
+
+
+    public function personalInf(Request $request){
+        $id=Student::find($request->id)->limit(1)->get('base_id')->first();
+//        $information=BaseStudentResource::collection(Base_student::where('id',$id->base_id)->get(['name','surname','patronymic','passport'])->first());
+        $information = new BaseStudentResource(Base_student::where('id',$id->base_id)->first());
+//        var_dump($information);
+//        dd($information->group()->id);
+//        return $information;
+        var_dump($information);
+//        return response()->json($information);
+    }
 }

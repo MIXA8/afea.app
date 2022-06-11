@@ -70,9 +70,7 @@ class StudentApiController extends Controller
 
     public function personalInf(Request $request){
         $id=Student::find($request->id)->limit(1)->get('base_id')->first();
-//        $information=BaseStudentResource::collection(Base_student::where('id',$id->base_id)->get(['name','surname','patronymic','passport'])->first());
         $information = new BaseStudentResource(Base_student::where('id',$id->base_id)->first());
-//        dd($information->group()->id);
         return response()->json($information);
     }
 }

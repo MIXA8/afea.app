@@ -8,22 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-@php
 
-    var_dump($errors)
-
-@endphp
-
-{{--@if(Auth::guard('student')->check())--}}
-{{--    true--}}
-{{--@else--}}
-{{--    false--}}
-{{--@endif--}}
-
-<form action="{{ route('workers/umo/room') }}" method="post">
+<form action="{{ route('room.store') }}" method="post">
     @csrf
-
+    <input type="text" name="title" value="101">
+    <input type="text" name="description" value="Поточная аудитория">
+    <input type="text" name="amount" value="80">
     <input type="submit" >
 </form>
+
 </body>
 </html>

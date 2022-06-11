@@ -13,7 +13,7 @@ class Base_student extends Model
     protected $fillable=['passport','group'];
     protected $table='base_students';
 
-    public function title(){
-        return $this->belongsTo(Group::class);
-    }
+//    public function title(){
+//        return $this->belongsTo(Group::class);
+//    }
 }

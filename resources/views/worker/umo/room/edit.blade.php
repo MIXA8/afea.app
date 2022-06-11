@@ -8,22 +8,15 @@
     <title>Document</title>
 </head>
 <body>
-@php
 
-    var_dump($errors)
-
-@endphp
-
-{{--@if(Auth::guard('student')->check())--}}
-{{--    true--}}
-{{--@else--}}
-{{--    false--}}
-{{--@endif--}}
-
-<form action="{{ route('workers/umo/room') }}" method="post">
+<form action="{{ route('room.update',['room'=>$room->id]) }}" method="post">
     @csrf
-
+    @method('PUT')
+    <input type="text" name="title" value="{{ $room->title }}">
+    <input type="text" name="description" value="{{ $room->description }}">
+    <input type="text" name="amount" value="{{ $room->amount }}">
     <input type="submit" >
 </form>
+
 </body>
 </html>

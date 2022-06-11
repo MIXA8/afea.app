@@ -16,6 +16,7 @@ class GroupeResource extends JsonResource
     {
         return [
             'title'=>$this->title,
+            'course'=>$this->course
         ];
     }
 }

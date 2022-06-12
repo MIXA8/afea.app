@@ -4,9 +4,7 @@ namespace App\Http\Controllers\API\Students;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentAPIAuthRequest;
-use App\Http\Requests\Students\StudentAuthRequest;
 use App\Http\Resources\BaseStudentResource;
-use App\Http\Resources\GroupeResource;
 use App\Models\Base_student;
 use App\Models\Student;
 use Illuminate\Http\Request;

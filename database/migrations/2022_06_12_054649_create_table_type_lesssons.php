@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewTableSubjects extends Migration
+class CreateTableTypeLesssons extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateNewTableSubjects extends Migration
      */
     public function up()
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('type_lessons', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->integer('worker_id');
-            $table->string('colour')->default('#ffffff');
-            $table->boolean('delete')->default('0');
+            $table->string('short_title');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateNewTableSubjects extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('type_lessons');
     }
 }

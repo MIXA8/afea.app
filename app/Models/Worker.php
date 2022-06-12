@@ -13,7 +13,7 @@ class Worker extends Authenticatable
     use HasFactory;
 //    protected $guarded = 'worker';
     protected $fillable = [
-        'name', 'surname', 'patronymic', 'department', 'login', 'password',
+        'name', 'surname', 'patronymic', 'department', 'login', 'password','isteacher'
     ];
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\Workers\UMO;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Workers\UMO\RoomStoreRequest;
+use App\Http\Requests\Web\Workers\UMO\RoomStoreRequest;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -69,7 +69,6 @@ class UMOWorkerRoomController extends Controller
      */
     public function edit(Room $room)
     {
-        $room=Room::select('title','description','id','amount')->find($room)->first();
         return view('worker.umo.room.edit',compact('room'));
     }
 

@@ -23,3 +23,5 @@ Route::get('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@Work
 Route::post('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('WorkerLogin');
 
 Route::resource('/worker/umo/room', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerRoomController::class);
+Route::resource('/worker/umo/teacher', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTeacherController::class);
+Route::resource('/worker/umo/subject', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerSubjectController::class);

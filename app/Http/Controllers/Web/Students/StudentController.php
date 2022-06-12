@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web\Students;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Students\StudentAuthRequest;
 use App\Http\Resources\BaseStudentResource;
 use App\Models\Base_student;
 use App\Models\Student;

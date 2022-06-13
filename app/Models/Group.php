@@ -13,4 +13,8 @@ class Group extends Model
     {
         return $this->hasMany(Base_student::class);
     }
+
+    public function timeTable(){
+        return $this->hasMany(Timetable::class);
+    }
 }

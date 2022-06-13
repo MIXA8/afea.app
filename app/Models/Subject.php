@@ -10,4 +10,14 @@ class Subject extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'type', 'description', 'worker_id', 'colour'];
+
+    public function timeTable(){
+        return $this->hasMany(Timetable::class);
+    }
+
+    public function worker(){
+        return $this->belongsTo(Worker::class,'worker_id');
+    }
+
+
 }

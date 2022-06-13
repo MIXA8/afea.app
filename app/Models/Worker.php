@@ -25,6 +25,14 @@ class Worker extends Authenticatable
         'token', 'profile_id',
     ];
 
+    public function timeTable(){
+        return $this->hasMany(Timetable::class);
+    }
+
+    public function subject(){
+        return $this->hasMany(Subject::class,'id');
+    }
+
     public static function createToken($id)
     {
         $token = Str::random(60);

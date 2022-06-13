@@ -13,4 +13,8 @@ class Room extends Model
         'title', 'description', 'amount','delete'
     ];
 
+    public function timeTable(){
+        return $this->hasMany(Timetable::class);
+    }
+
 }

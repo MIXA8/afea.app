@@ -22,7 +22,13 @@ Route::post('/test', 'App\Http\Controllers\Web\Workers\WorkerController@Workerau
 Route::get('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('WorkerLoginForm');
 Route::post('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('WorkerLogin');
 
-Route::resource('/worker/umo/room', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerRoomController::class);
-Route::resource('/worker/umo/teacher', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTeacherController::class);
-Route::resource('/worker/umo/subject', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerSubjectController::class);
-Route::resource('/worker/umo/timetable', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTimetablesController::class);
+// Роуты для УМО
+
+Route::group(['prefix' => 'worker/umo/','middleware'=>'umo'], function () {
+    Route::resource('room', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerRoomController::class);
+    Route::resource('teacher', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTeacherController::class);
+    Route::resource('subject', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerSubjectController::class);
+    Route::resource('timetable', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTimetablesController::class);
+});
+
+

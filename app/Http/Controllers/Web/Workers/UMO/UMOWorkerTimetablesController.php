@@ -8,8 +8,8 @@ use App\Models\Group;
 use App\Models\Room;
 use App\Models\Subject;
 use App\Models\Timetable;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Worker_role;
+use Illuminate\Support\Facades\Auth;
 
 class UMOWorkerTimetablesController extends Controller
 {
@@ -20,7 +20,7 @@ class UMOWorkerTimetablesController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -58,7 +58,7 @@ class UMOWorkerTimetablesController extends Controller
     public function store(AddTimetableLessonRequest $request)
     {
 //        dd($request->date);
-        $validated=$request->validated();
+        $validated = $request->validated();
 //        $request->date='1';
         Timetable::create($request);
     }
@@ -98,7 +98,7 @@ class UMOWorkerTimetablesController extends Controller
                 ]
             ]
         )->get();
-        return view('worker.umo.timetable.edit', compact('subjects', 'rooms', 'groups','timetable'));
+        return view('worker.umo.timetable.edit', compact('subjects', 'rooms', 'groups', 'timetable'));
     }
 
     /**
@@ -110,9 +110,9 @@ class UMOWorkerTimetablesController extends Controller
      */
     public function update(AddTimetableLessonRequest $request, Timetable $timetable)
     {
-        $validated=$request->validated();
+        $validated = $request->validated();
         $timetable->update($request->all());
-        return redirect()->back()->with('success','Пара в расписание изменена');
+        return redirect()->back()->with('success', 'Пара в расписание изменена');
     }
 
     /**

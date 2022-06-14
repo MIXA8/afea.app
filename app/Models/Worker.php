@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -31,6 +32,22 @@ class Worker extends Authenticatable
 
     public function subject(){
         return $this->hasMany(Subject::class,'id');
+    }
+
+
+
+    public function access(){
+        return $this->hasMany(Worker_role::class,'worker_id');
+    }
+
+    public function worker_access($middleware_access){
+        $accesses=Worker_role::where('worker_id', Auth::guard('worker')->user()->id)->get(['access']);
+        foreach($accesses as $access){
+            if($access->access == $middleware_access){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static function createToken($id)

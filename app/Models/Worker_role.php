@@ -5,19 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subject extends Model
+class Worker_role extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'type', 'description', 'worker_id', 'colour'];
-
-    public function timeTable(){
-        return $this->hasMany(Timetable::class);
-    }
+    protected $table='worker_roles';
 
     public function worker(){
         return $this->belongsTo(Worker::class,'id');
     }
-
-
 }

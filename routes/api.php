@@ -22,3 +22,9 @@ Route::post('student/register', [StudentApiController::class, 'Studentauthorize'
 //Route::post('student/register', 'App\Http\Controllers\API\Students\StudentApiController@Studentauthorize')->name('student.register');
 Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiController@StudentLogin')->name('student.auth');
 Route::post('student/personal/information', [StudentApiController::class, 'personalInf']);
+
+Route::post('worker/login',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'WorkerLogin']);
+Route::get('worker/all/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getGroups']);
+Route::get('worker/get/{id}/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getStudentsGroup']);
+Route::post('worker/add/pass',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'addPass']);
+Route::get('holiday',[StudentApiController::class,'holidays']);

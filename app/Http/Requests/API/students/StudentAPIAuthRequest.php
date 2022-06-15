@@ -27,8 +27,8 @@ class StudentAPIAuthRequest extends FormRequest
     {
         return [
             'passport'=>'required',
-            'login'=>'required|max:16|min:8',
-            'password'=>'required|max:16|min:8'
+            'login'=>'required|max:16|min:6',
+            'password'=>'required|max:16|min:6'
         ];
     }
 

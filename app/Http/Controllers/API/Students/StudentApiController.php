@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentAPIAuthRequest;
 use App\Http\Resources\BaseStudentResource;
 use App\Models\Base_student;
+use App\Models\Holidays;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,9 +67,29 @@ class StudentApiController extends Controller
         ], 200);
     }
 
-    public function personalInf(Request $request){
-        $id=Student::find($request->id)->limit(1)->get('base_id')->first();
-        $information = new BaseStudentResource(Base_student::where('id',$id->base_id)->first());
+    public function personalInf(Request $request)
+    {
+        $id = Student::find($request->id)->limit(1)->get('base_id')->first();
+        $information = new BaseStudentResource(Base_student::where('id', $id->base_id)->first());
         return response()->json($information);
+    }
+
+    public function holidays()
+    {
+        $now = date('Y-m-d');
+        $holidays = Holidays::where('date', '<=', $now)
+            ->orWhere(
+                [
+                    [
+                        'long_days', '>=', $now,
+                    ],
+                    [
+                        'date', '<=', $now,
+                    ]
+                ]
+            )
+            ->select('id', 'title')->first();
+        if($holidays==null) $holidays=0;
+        return response()->json($holidays);
     }
 }

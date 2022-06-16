@@ -22,6 +22,8 @@ Route::post('student/register', [StudentApiController::class, 'Studentauthorize'
 //Route::post('student/register', 'App\Http\Controllers\API\Students\StudentApiController@Studentauthorize')->name('student.register');
 Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiController@StudentLogin')->name('student.auth');
 Route::post('student/personal/information', [StudentApiController::class, 'personalInf']);
+Route::post('student/personal/information/update', [StudentApiController::class, 'updatePersonalInf']);
+Route::post('student/img/change', [StudentApiController::class, 'changeAvatarImgStore']);
 
 Route::post('worker/login',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'WorkerLogin']);
 Route::get('worker/all/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getGroups']);

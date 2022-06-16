@@ -25,6 +25,14 @@ class BaseStudentResource extends JsonResource
             'patronymic'=>$this->patronymic,
             'passport'=>$this->passport,
             'group'=> new GroupeResource(Group::find($this->group)),
+            'citizenship'=>$this->citizenship,
+            'PNFL'=>$this->PNFL,
+            'INN'=>$this->INN,
+            'birthday'=>$this->birthday,
+            'place_birthday'=>$this->place_birthday,
+            'year_start'=>$this->year_start,
+            'year_finish'=>$this->year_finish,
+            'n_contract'=>$this->n_contract,
         ];
     }
 }

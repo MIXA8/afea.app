@@ -81,4 +81,21 @@ class StudentController extends Controller
 
 
 
+    public function changeAvatarImgStore(Request $request,Student $student)
+    {
+//        $request->validate([
+//            'img' => 'required|max:3240',
+//        ]);
+        $id=$student->getTokenId($request->header('token'));
+//        if ($request->hasFile('img')) {
+//            Storage::delete(Auth::guard('student')->user()->img);
+//            $folder = Auth::guard('student')->user()->id;
+//            $img = $request->file('img')->store("students/".Auth::guard('student')->user()->id."/{$folder}");
+//            $result = DB::table('students')->where('id', Auth::guard('student')->user()->id)->update([
+//                'img' => $img
+//            ]);
+//        }
+        return response()->json($id);
+    }
+
 }

@@ -35,4 +35,9 @@ class Student extends Authenticatable
             ->update(['token' => $token]);
         return $token;
     }
+
+    public function getTokenId($token)
+    {
+        return Student::where('token',$token)->select('id','img')->first();
+    }
 }

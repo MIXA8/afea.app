@@ -15,6 +15,7 @@ class ChangeStudentsTable extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             $table->string('token')->nullable()->after('password');
+            $table->text('img')->nullable()->after('token');
         });
     }
 
@@ -27,6 +28,7 @@ class ChangeStudentsTable extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             $table->dropColumn('token');
+            $table->dropColumn('img');
         });
     }
 }

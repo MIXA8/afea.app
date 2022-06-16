@@ -10,7 +10,7 @@ class Base_student extends Model
 {
     use HasFactory;
 
-    protected $fillable=['passport','group'];
+    protected $fillable=['passport','group','citizenship','PNFL','INN','birthday','place_birthday','year_start','sex','family_status'];
     protected $table='base_students';
 
 //    public function title(){

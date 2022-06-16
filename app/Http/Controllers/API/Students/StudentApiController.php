@@ -8,10 +8,12 @@ use App\Http\Resources\BaseStudentResource;
 use App\Models\Base_student;
 use App\Models\Holidays;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class StudentApiController extends Controller
 {
@@ -74,10 +76,34 @@ class StudentApiController extends Controller
         return response()->json($information);
     }
 
-    public function holidays()
+    public function updatePersonalInf(Request $request)
+    {
+        $information = Base_student::find($request->id);
+        $information->update($request->all());
+        return response()->json($information);
+    }
+
+    public function changeAvatarImgStore(Request $request,Student $student)
+    {
+        $request->validate([
+            'img' => 'required|max:3240',
+        ]);
+        $student=$student->getTokenId($request->header('token'));
+        if ($request->hasFile('img')) {
+            Storage::delete($student->img);
+            $folder = $student->id;
+            $img = $request->file('img')->store("students/{$folder}");
+            $result = DB::table('students')->where('id', $student->id)->update([
+                'img' => $img
+            ]);
+        }
+        return response()->json('adasda');
+    }
+
+    public function holidays(Request $request)
     {
         $now = date('Y-m-d');
-        $holidays = Holidays::where('date', '<=', $now)
+        $holiday = Holidays::where('date', '<=', $now)
             ->orWhere(
                 [
                     [
@@ -89,7 +115,22 @@ class StudentApiController extends Controller
                 ]
             )
             ->select('id', 'title')->first();
-        if($holidays==null) $holidays=0;
-        return response()->json($holidays);
+        $birthday = Base_student::where(
+            [
+                [
+                    'passport', '=', $request->passport
+                ]
+            ]
+        )->select('birthday')->first();
+        if ($holiday == null) $holiday = 0;
+        $birthday = Carbon::parse(Carbon::create($birthday->birthday)->format('Y-m-d'));
+        if ($birthday->month == Carbon::now()->month && $birthday->day == Carbon::now()->day) $birthday = true;
+        else $birthday = false;
+        return response()->json(
+            [
+                'holiday' => $holiday,
+                'birthday' => $birthday,
+            ]
+        );
     }
 }

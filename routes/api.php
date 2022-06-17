@@ -24,9 +24,11 @@ Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiControl
 Route::post('student/personal/information', [StudentApiController::class, 'personalInf']);
 Route::post('student/personal/information/update', [StudentApiController::class, 'updatePersonalInf']);
 Route::post('student/img/change', [StudentApiController::class, 'changeAvatarImgStore']);
+Route::post('student/login/password/change', [StudentApiController::class, 'changeLoginAndPassword']);
 
 Route::post('worker/login',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'WorkerLogin']);
 Route::get('worker/all/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getGroups']);
 Route::get('worker/get/{id}/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getStudentsGroup']);
 Route::post('worker/add/pass',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'addPass']);
 Route::get('holiday',[StudentApiController::class,'holidays']);
+Route::post('worker/img/change', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'changeAvatarImgStore']);

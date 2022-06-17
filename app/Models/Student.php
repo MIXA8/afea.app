@@ -40,4 +40,5 @@ class Student extends Authenticatable
     {
         return Student::where('token',$token)->select('id','img')->first();
     }
+
 }

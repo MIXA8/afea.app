@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Students;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentAPIAuthRequest;
+use App\Http\Requests\API\students\StudentChangeLP;
 use App\Http\Resources\BaseStudentResource;
 use App\Models\Base_student;
 use App\Models\Holidays;
@@ -83,12 +84,12 @@ class StudentApiController extends Controller
         return response()->json($information);
     }
 
-    public function changeAvatarImgStore(Request $request,Student $student)
+    public function changeAvatarImgStore(Request $request, Student $student)
     {
         $request->validate([
             'img' => 'required|max:3240',
         ]);
-        $student=$student->getTokenId($request->header('token'));
+        $student = $student->getTokenId($request->header('token'));
         if ($request->hasFile('img')) {
             Storage::delete($student->img);
             $folder = $student->id;
@@ -97,7 +98,13 @@ class StudentApiController extends Controller
                 'img' => $img
             ]);
         }
-        return response()->json('adasda');
+        $student = $student->getTokenId($request->header('token'));
+        $src = asset("storage/{$student['img']}");
+        return response()->json(
+            [
+                'img' => $src,
+            ]
+        );
     }
 
     public function holidays(Request $request)
@@ -132,5 +139,19 @@ class StudentApiController extends Controller
                 'birthday' => $birthday,
             ]
         );
+    }
+
+    public function changeLoginAndPassword(StudentChangeLP $request, Student $student)
+    {
+        $validated = $request->validated();
+        $student = $student->getTokenId($request->header('token'));
+        $student = Student::find($student['id']);
+        $student->update(
+            [
+                'login' => $request->login,
+                'password' => Hash::make($request->password),
+            ]
+        );
+        return response()->json('Данные изменились');
     }
 }

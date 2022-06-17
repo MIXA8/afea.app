@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Web\Workers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Workers\WokerRequestRegistr;
 use App\Models\Student;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class WorkerController extends Controller
 {

@@ -30,6 +30,7 @@ Route::group(['prefix' => 'worker/umo/','middleware'=>'umo'], function () {
     Route::resource('teacher', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTeacherController::class);
     Route::resource('subject', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerSubjectController::class);
     Route::resource('timetable', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerTimetablesController::class);
+
 });
 
-
+Route::resource('lord/department', \App\Http\Controllers\Web\Workers\Lord\DepartmentController::class);

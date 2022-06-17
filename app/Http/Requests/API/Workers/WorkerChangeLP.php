@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\API\Workers;
+namespace App\Http\Requests\API\workers;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class WokerRequestRegistr extends FormRequest
+class WorkerChangeLP extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,7 +35,7 @@ class WokerRequestRegistr extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'success'   => false,
-            'message'   => 'Валидация не успешно',
+            'message'   => 'Данные не изменились',
             'data'      => $validator->errors()
         ]));
     }

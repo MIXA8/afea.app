@@ -71,4 +71,9 @@ class Worker extends Authenticatable
         return $id;
     }
 
+    public function getTokenId($token)
+    {
+        return Worker::where('token',$token)->select('id','img')->first();
+    }
+
 }

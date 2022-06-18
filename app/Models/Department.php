@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
-    protected $fillable=['title','description','category','senior','writter','img'];
-    protected $table='departments';
+
+    protected $fillable = ['title', 'description', 'category', 'senior', 'writter', 'img'];
+    protected $table = 'departments';
+
+    public function worker()
+    {
+        return $this->hasMany(Worker::class, 'department', 'id');
+    }
 }

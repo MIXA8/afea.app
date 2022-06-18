@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Workers\UMO;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Workers\WorkerController;
 use App\Http\Requests\Web\Workers\UMO\AddTimetableLessonRequest;
 use App\Models\Group;
 use App\Models\Room;
@@ -11,7 +12,7 @@ use App\Models\Timetable;
 use App\Models\Worker_role;
 use Illuminate\Support\Facades\Auth;
 
-class UMOWorkerTimetablesController extends Controller
+class UMOWorkerTimetablesController extends WorkerController
 {
     /**
      * Display a listing of the resource.

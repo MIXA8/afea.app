@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Web\Workers\UMO;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Workers\WorkerController;
 use App\Http\Requests\Web\Workers\UMO\RoomStoreRequest;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
-class UMOWorkerRoomController extends Controller
+class UMOWorkerRoomController extends WorkerController
 {
     /**
      * Display a listing of the resource.

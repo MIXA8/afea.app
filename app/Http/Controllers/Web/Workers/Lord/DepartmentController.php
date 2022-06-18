@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Web\Workers\Lord;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Workers\WorkerController;
 use App\Http\Requests\Web\Workers\Lord\Department\DepartmentCreateRequest;
 use App\Models\Department;
 use App\Models\Worker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class DepartmentController extends Controller
+class DepartmentController extends WorkerController
 {
 
     protected $categorys = ['Кафедра', 'Отдел'];
@@ -27,7 +28,7 @@ class DepartmentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -39,7 +40,7 @@ class DepartmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DepartmentCreateRequest $request)
     {

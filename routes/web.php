@@ -34,3 +34,4 @@ Route::group(['prefix' => 'worker/umo/','middleware'=>'umo'], function () {
 });
 
 Route::resource('lord/department', \App\Http\Controllers\Web\Workers\Lord\DepartmentController::class);
+Route::resource('worker/writter', \App\Http\Controllers\Web\Workers\WritterController::class);

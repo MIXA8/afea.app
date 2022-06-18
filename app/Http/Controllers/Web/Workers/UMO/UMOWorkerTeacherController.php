@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Web\Workers\UMO;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Workers\WorkerController;
 use App\Http\Requests\Web\Workers\UMO\TeacherAddStoreRequest;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UMOWorkerTeacherController extends Controller
+class UMOWorkerTeacherController extends WorkerController
 {
     /**
      * Display a listing of the resource.

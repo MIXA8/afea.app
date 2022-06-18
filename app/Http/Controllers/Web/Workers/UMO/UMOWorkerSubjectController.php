@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Web\Workers\UMO;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Workers\WorkerController;
 use App\Http\Requests\Web\Workers\UMO\SubjectStoreRequest;
 use App\Models\Subject;
 use App\Models\Type_lesson;
 use App\Models\Worker;
 
-class UMOWorkerSubjectController extends Controller
+class UMOWorkerSubjectController extends WorkerController
 {
     /**
      * Display a listing of the resource.

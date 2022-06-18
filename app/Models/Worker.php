@@ -42,6 +42,11 @@ class Worker extends Authenticatable
         return $this->hasMany(Worker_role::class, 'worker_id');
     }
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'id', 'department');
+    }
+
     public function worker_access($middleware_access)
     {
         $accesses = Worker_role::where('worker_id', Auth::guard('worker')->user()->id)->get(['access']);
@@ -65,7 +70,7 @@ class Worker extends Authenticatable
     public static function getToken($token)
     {
         $id = Worker::where('token', $token)->select('id')->value('id');
-        if($id==null){
+        if ($id == null) {
             abort(404);
         }
         return $id;
@@ -73,7 +78,7 @@ class Worker extends Authenticatable
 
     public function getTokenId($token)
     {
-        return Worker::where('token',$token)->select('id','img')->first();
+        return Worker::where('token', $token)->select('id', 'img')->first();
     }
 
 }

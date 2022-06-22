@@ -15,6 +15,6 @@ class Group extends Model
     }
 
     public function timeTable(){
-        return $this->hasMany(Timetable::class);
+        return $this->hasMany(Timetable::class,'id');
     }
 }

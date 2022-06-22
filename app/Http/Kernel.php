@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\WorkerAPIDenary;
+use App\Http\Middleware\WorkerDenary;
 use App\Http\Middleware\WorkerUMO;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -65,5 +67,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'umo'=>WorkerUMO::class,
+        'denary'=>WorkerAPIDenary::class,
     ];
 }

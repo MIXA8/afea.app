@@ -32,7 +32,7 @@ class UMOWorkerTimetablesController extends WorkerController
     public function create()
     {
         $subjects = Subject::with('worker')->get();
-        $rooms = Room::get();
+        $rooms = Room::all();
         $groups = Group::where(
             [
                 [
@@ -61,7 +61,7 @@ class UMOWorkerTimetablesController extends WorkerController
 //        dd($request->date);
         $validated = $request->validated();
 //        $request->date='1';
-        Timetable::create($request);
+        Timetable::create($request->all());
     }
 
     /**

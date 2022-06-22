@@ -21,9 +21,13 @@ Route::get('/test', 'App\Http\Controllers\Web\Workers\WorkerController@getForm')
 Route::post('/test', 'App\Http\Controllers\Web\Workers\WorkerController@Workerauthorize')->name('indep');
 Route::get('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('WorkerLoginForm');
 Route::post('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('WorkerLogin');
-//Route::post('student/img/change', [StudentApiController::class, 'changeAvatarImgStore']);
-//Route::post('student/img/change','App\Http\Controllers\Web\Students\StudentController@changeAvatarImgStore');
-// Роуты для УМО
+
+
+
+Route::get('student/get/comment', 'App\Http\Controllers\Web\Students\StudentController@getComment');
+Route::get('student/add/comment', 'App\Http\Controllers\Web\Students\StudentController@addComment');
+Route::get('student/get/timetable/week/', 'App\Http\Controllers\API\Students\Standart\TimeTableStudentController@getLessonForWeek');
+
 
 Route::group(['prefix' => 'worker/umo/','middleware'=>'umo'], function () {
     Route::resource('room', \App\Http\Controllers\Web\Workers\UMO\UMOWorkerRoomController::class);

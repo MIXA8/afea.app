@@ -12,7 +12,7 @@ class Subject extends Model
     protected $fillable = ['title', 'type', 'description', 'worker_id', 'colour'];
 
     public function timeTable(){
-        return $this->hasMany(Timetable::class);
+        return $this->hasMany(Timetable::class,'id');
     }
 
     public function worker(){

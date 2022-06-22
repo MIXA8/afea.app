@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentChangeLP;
 use App\Http\Requests\API\workers\WorkerChangeLP;
 use App\Models\Holidays;
+use App\Models\Post_comments;
 use App\Models\Profile;
 use App\Models\Student;
 use App\Models\Worker;
@@ -140,6 +141,24 @@ class WorkerApiController extends Controller
             ]
         );
         return response()->json('Данные изменились');
+    }
+
+    public function addComment(Request $request,Worker $worker){
+        $worker=$worker->getTokenId($request->header('token'));
+//        dd($student->id);
+        Post_comments::create(
+            [
+                'post_id'=>$request->post,
+                'user_id'=>$worker->id,
+                'worker'=>1,
+                'comment'=>$request->comment,
+            ]
+        );
+        return response()->json(
+            [
+                'code'=>200,
+            ]
+        );
     }
 
 }

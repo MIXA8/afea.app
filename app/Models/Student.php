@@ -41,4 +41,14 @@ class Student extends Authenticatable
         return Student::where('token',$token)->select('id','img')->first();
     }
 
+    public function base_inf()
+    {
+        return $this->belongsTo(Base_student::class,'base_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Post_comments::class,'id');
+    }
+
 }

@@ -33,7 +33,7 @@
     <input type="time" name="time_finish">
     <input type="number" name="day">
     <input type="number" name="month">
-{{--    <input type="number" name="year">--}}
+    <input type="number" name="year">
     <input type="date" name="date">
     <input type="submit">
 </form>

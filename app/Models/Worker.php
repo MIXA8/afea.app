@@ -28,7 +28,7 @@ class Worker extends Authenticatable
 
     public function timeTable()
     {
-        return $this->hasMany(Timetable::class);
+        return $this->hasMany(Timetable::class,'id');
     }
 
     public function subject()
@@ -47,10 +47,24 @@ class Worker extends Authenticatable
         return $this->belongsTo(Department::class, 'id', 'department');
     }
 
+    public function comment()
+    {
+        return $this->hasMany(Post_comments::class,'id');
+    }
+
     public function worker_access($middleware_access)
     {
         $accesses = Worker_role::where('worker_id', Auth::guard('worker')->user()->id)->get(['access']);
         foreach ($accesses as $access) {
+            if ($access->access == $middleware_access) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function worker_access_api($middleware_access){
+        foreach ($this->access as $access) {
             if ($access->access == $middleware_access) {
                 return true;
             }
@@ -70,6 +84,15 @@ class Worker extends Authenticatable
     public static function getToken($token)
     {
         $id = Worker::where('token', $token)->select('id')->value('id');
+        if ($id == null) {
+            abort(404);
+        }
+        return $id;
+    }
+
+    public static function getTokenWorker($token)
+    {
+        $id = Worker::where('token', $token)->first();
         if ($id == null) {
             abort(404);
         }

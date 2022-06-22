@@ -11,24 +11,24 @@ class Timetable extends Model
 
     protected $fillable = ['subject', 'room', 'group', 'worker_id', 'time_start', 'time_finish', 'day', 'month', 'year', 'date', 'delete'];
 
-    public function subject(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function subjectInf(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class,'subject');
     }
 
-    public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function roomInf(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsTo(Room::class,'room');
     }
 
-    public function Group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function groupInf(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class,'group');
     }
 
-    public function worker(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function workerInf(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Worker::class);
+        return $this->belongsTo(Worker::class,'worker_id');
     }
 
 }

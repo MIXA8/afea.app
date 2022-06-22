@@ -14,12 +14,12 @@ class DenaryWorkerApiController extends WorkerApiController
 
     public function addPass(Request $request)
     {
-        $worker_id = Worker::getToken($request->header('token'));
+//        $worker_id = Worker::getToken($request->header('token'));
         $message = $this->checkStudentRequestAttendances($request);
         foreach ($request->students as $student) {
             Pass::create(
                 [
-                    'worker_id' => $worker_id,
+                    'worker_id' => $request->worker->id,
                     'subject_id' => $request->subject_id,
                     'student_id' => $student,
                     'group_id' => $request->group,

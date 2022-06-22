@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Web\Students;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BaseStudentResource;
-use App\Models\Base_student;
+use App\Http\Resources\CommentResource;
+use App\Models\Post;
+use App\Models\Post_comments;
 use App\Models\Student;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -80,22 +78,30 @@ class StudentController extends Controller
 //    }
 
 
-
-    public function changeAvatarImgStore(Request $request,Student $student)
+    public function changeAvatarImgStore(Request $request, Student $student)
     {
-//        $request->validate([
-//            'img' => 'required|max:3240',
-//        ]);
-        $id=$student->getTokenId($request->header('token'));
-//        if ($request->hasFile('img')) {
-//            Storage::delete(Auth::guard('student')->user()->img);
-//            $folder = Auth::guard('student')->user()->id;
-//            $img = $request->file('img')->store("students/".Auth::guard('student')->user()->id."/{$folder}");
-//            $result = DB::table('students')->where('id', Auth::guard('student')->user()->id)->update([
-//                'img' => $img
-//            ]);
-//        }
+        $id = $student->getTokenId($request->header('token'));
         return response()->json($id);
+    }
+
+    public function getComment(Request $request)
+    {
+        $comments = Post_comments::with('student','workerG')->select(['comment','user_id','id','worker'])->where(
+            [
+                ['post_id', '=', $request->post],
+                ['delete', '=', '0'],
+            ]
+        )->paginate(2);
+        foreach ($comments as $comment) {
+            $com[]=new CommentResource($comment);
+        }
+        return \response()->json($com);
+    }
+
+
+    public function trueComment($id, bool $worker)
+    {
+        return Student::where('id', $id)->get('img');
     }
 
 }

@@ -25,10 +25,13 @@ Route::post('student/personal/information', [StudentApiController::class, 'perso
 Route::post('student/personal/information/update', [StudentApiController::class, 'updatePersonalInf']);
 Route::post('student/img/change', [StudentApiController::class, 'changeAvatarImgStore']);
 Route::post('student/login/password/change', [StudentApiController::class, 'changeLoginAndPassword']);
+Route::post('student/add/comment', [\App\Http\Controllers\API\Students\StudentApiController::class, 'addComment']);
+Route::get('student/get/comment', [\App\Http\Controllers\API\Students\StudentApiController::class, 'getComment']);
 
 Route::post('worker/login',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'WorkerLogin']);
 Route::get('worker/all/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getGroups']);
 Route::get('worker/get/{id}/group',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'getStudentsGroup']);
-Route::post('worker/add/pass',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'addPass']);
+Route::post('worker/add/pass',[\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class,'addPass'])->middleware('denary');
 Route::get('holiday',[StudentApiController::class,'holidays']);
 Route::post('worker/img/change', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'changeAvatarImgStore']);
+Route::post('worker/add/comment', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'addComment']);

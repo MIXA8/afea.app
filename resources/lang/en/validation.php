@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'accepted' => 'The :attribute must be accepted.',
+    "accepted" => "Вы должны принять :attribute.",
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',
-    'active_url' => 'The :attribute is not a valid URL.',
-    'after' => 'The :attribute must be a date after :date.',
+    "active_url" => "Поле :attribute недействительный URL.",
+    "after" => "Поле :attribute должно быть датой после :date.",
     'after_or_equal' => 'The :attribute must be a date after or equal to :date.',
     'alpha' => 'The :attribute must only contain letters.',
     'alpha_dash' => 'The :attribute must only contain letters, numbers, dashes and underscores.',
@@ -43,7 +43,7 @@ return [
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => 'The :attribute must be a valid email address.',
+    'email' => 'Поле :attribute имеет ошибочный формат.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'enum' => 'The selected :attribute is invalid.',
     'exists' => 'The selected :attribute is invalid.',
@@ -61,10 +61,10 @@ return [
         'string' => 'The :attribute must be greater than or equal to :value characters.',
         'array' => 'The :attribute must have :value items or more.',
     ],
-    'image' => 'The :attribute must be an image.',
+    'image' => "Поле :attribute должно быть изображением.",
     'in' => 'The selected :attribute is invalid.',
     'in_array' => 'The :attribute field does not exist in :other.',
-    'integer' => 'The :attribute must be an integer.',
+    'integer' => "Поле :attribute должно быть целым числом.",
     'ip' => 'The :attribute must be a valid IP address.',
     'ipv4' => 'The :attribute must be a valid IPv4 address.',
     'ipv6' => 'The :attribute must be a valid IPv6 address.',
@@ -82,19 +82,19 @@ return [
         'array' => 'The :attribute must not have more than :value items.',
     ],
     'mac_address' => 'The :attribute must be a valid MAC address.',
-    'max' => [
-        'numeric' => 'The :attribute must not be greater than :max.',
-        'file' => 'The :attribute must not be greater than :max kilobytes.',
-        'string' => 'The :attribute must not be greater than :max characters.',
-        'array' => 'The :attribute must not have more than :max items.',
+    "max" => [
+        "numeric" => "Поле :attribute должно быть не больше :max.",
+        "file" => "Поле :attribute должно быть не больше :max Килобайт.",
+        "string" => "Поле :attribute должно быть не длиннее :max символов.",
+        "array" => "Поле :attribute должно содержать не более :max элементов."
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
-    'min' => [
-        'numeric' => 'The :attribute must be at least :min.',
-        'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
-        'array' => 'The :attribute must have at least :min items.',
+    "min" => [
+        "numeric" => "Поле :attribute должно быть не менее :min.",
+        "file" => "Поле :attribute должно быть не менее :min Килобайт.",
+        "string" => "Поле :attribute должно быть не короче :min символов.",
+        "array" => "Поле :attribute должно содержать не менее :min элементов."
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
     'not_in' => 'The selected :attribute is invalid.',
@@ -107,7 +107,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => "Поле :attribute обязательно для заполнения.",
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -116,11 +116,11 @@ return [
     'required_without' => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
     'same' => 'The :attribute and :other must match.',
-    'size' => [
-        'numeric' => 'The :attribute must be :size.',
-        'file' => 'The :attribute must be :size kilobytes.',
-        'string' => 'The :attribute must be :size characters.',
-        'array' => 'The :attribute must contain :size items.',
+    "size" => [
+        "numeric" => "Поле :attribute должно быть :size.",
+        "file" => "Поле :attribute должно быть :size Килобайт.",
+        "string" => "Поле :attribute должно быть длиной :size символов.",
+        "array" => "Количество элементов в поле :attribute должно быть :size."
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
@@ -144,6 +144,7 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+
         ],
     ],
 
@@ -158,6 +159,29 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'title'=>'заголовок',
+        'passport'=>'пасспорт',
+        'login'=>'логин',
+        'password'=>'пароль',
+        'img'=>'изображение',
+        'worker_id'=>'преподователь',
+        'text'=>'статья',
+        'time_start'=>'время начала',
+        'short'=>'к.пост',
+        'subject'=>'предмет',
+        'room'=>'комната',
+        'group'=>'группа',
+        'time_finish'=>'время оконачние пары',
+        'day'=>'день',
+        'month'=>'месяц',
+        'year'=>'год',
+        'amount'=>'колчиство мест',
+        'type'=>'тип',
+        'name'=>'имя',
+        'surname'=>'фамилия',
+        'patronymic'=>'отчество',
+        'department'=>'кафедра',
+    ],
 
 ];

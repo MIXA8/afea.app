@@ -8,6 +8,8 @@ use App\Http\Requests\API\students\StudentChangeLP;
 use App\Http\Resources\BaseStudentResource;
 use App\Models\Base_student;
 use App\Models\Holidays;
+use App\Models\Post;
+use App\Models\Post_comments;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -107,39 +109,39 @@ class StudentApiController extends Controller
         );
     }
 
-    public function holidays(Request $request)
-    {
-        $now = date('Y-m-d');
-        $holiday = Holidays::where('date', '<=', $now)
-            ->orWhere(
-                [
-                    [
-                        'long_days', '>=', $now,
-                    ],
-                    [
-                        'date', '<=', $now,
-                    ]
-                ]
-            )
-            ->select('id', 'title')->first();
-        $birthday = Base_student::where(
-            [
-                [
-                    'passport', '=', $request->passport
-                ]
-            ]
-        )->select('birthday')->first();
-        if ($holiday == null) $holiday = 0;
-        $birthday = Carbon::parse(Carbon::create($birthday->birthday)->format('Y-m-d'));
-        if ($birthday->month == Carbon::now()->month && $birthday->day == Carbon::now()->day) $birthday = true;
-        else $birthday = false;
-        return response()->json(
-            [
-                'holiday' => $holiday,
-                'birthday' => $birthday,
-            ]
-        );
-    }
+//    public function holidays(Request $request)
+//    {
+//        $now = date('Y-m-d');
+//        $holiday = Holidays::where('date', '<=', $now)
+//            ->orWhere(
+//                [
+//                    [
+//                        'long_days', '>=', $now,
+//                    ],
+//                    [
+//                        'date', '<=', $now,
+//                    ]
+//                ]
+//            )
+//            ->select('id', 'title')->first();
+//        $birthday = Base_student::where(
+//            [
+//                [
+//                    'passport', '=', $request->passport
+//                ]
+//            ]
+//        )->select('birthday')->first();
+//        if ($holiday == null) $holiday = 0;
+//        $birthday = Carbon::parse(Carbon::create($birthday->birthday)->format('Y-m-d'));
+//        if ($birthday->month == Carbon::now()->month && $birthday->day == Carbon::now()->day) $birthday = true;
+//        else $birthday = false;
+//        return response()->json(
+//            [
+//                'holiday' => $holiday,
+//                'birthday' => $birthday,
+//            ]
+//        );
+//    }
 
     public function changeLoginAndPassword(StudentChangeLP $request, Student $student)
     {
@@ -154,4 +156,38 @@ class StudentApiController extends Controller
         );
         return response()->json('Данные изменились');
     }
+
+    public function addComment(Request $request,Student $student){
+        $student=$student->getTokenId($request->header('token'));
+        Post_comments::create(
+            [
+                'post_id'=>$request->post,
+                'user_id'=>$student->id,
+                'worker'=>0,
+                'comment'=>$request->comment,
+            ]
+        );
+        $post=Post::find($request->post);
+        $post->comment=$post->comment+1;
+        $post->save();
+        return response()->json(
+            [
+                'code'=>200,
+            ]
+        );
+    }
+
+    public function getComment(Request $request){
+        $comments = Post_comments::with('student','workerG')->where(
+            [
+                ['post_id', '=', $request->post],
+                ['delete', '=', '0'],
+            ]
+        )->paginate(2);
+        foreach ($comments as $comment) {
+            $com[]=Post_comments::whoIsUser($comment,$comment->worker);
+        }
+        return response()->json($com);
+    }
+
 }

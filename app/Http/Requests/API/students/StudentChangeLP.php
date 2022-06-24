@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\API\students;
 
+use App\Models\Student;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -27,7 +28,7 @@ class StudentChangeLP extends FormRequest
     {
         return [
             'login'=>'required|max:16|min:6',
-            'password'=>'required|max:16|min:6'
+            'password'=>'required|max:16|min:6',
         ];
     }
 

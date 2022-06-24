@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\students\StudentAPIAuthRequest;
 use App\Http\Requests\API\students\StudentChangeLP;
 use App\Http\Resources\BaseStudentResource;
+use App\Http\Resources\PostResource;
 use App\Models\Base_student;
-use App\Models\Holidays;
+use App\Models\Department;
 use App\Models\Post;
 use App\Models\Post_comments;
 use App\Models\Student;
-use Carbon\Carbon;
+use App\Models\Suggestion;
+use App\Models\Worker;
+use App\Models\Wrating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,23 +70,26 @@ class StudentApiController extends Controller
             ]);
         }
         return response()->json([
-            'message' => 'Вы успешео взашли на свой аккаунт',
+            'message' => 'Вы успешео зашли на свой аккаунт',
             'token_api' => Student::createToken(Auth::guard('student')->user()->id),
         ], 200);
     }
 
     public function personalInf(Request $request)
     {
-        $id = Student::find($request->id)->limit(1)->get('base_id')->first();
-        $information = new BaseStudentResource(Base_student::where('id', $id->base_id)->first());
+        $information = new BaseStudentResource(Base_student::where('id', $request->student->base_id)->first());
         return response()->json($information);
     }
 
     public function updatePersonalInf(Request $request)
     {
-        $information = Base_student::find($request->id);
+        $information = Base_student::where('id', $request->student->base_id)->first();
         $information->update($request->all());
-        return response()->json($information);
+        return response()->json(
+            [
+                'code' => '200',
+            ]
+        );
     }
 
     public function changeAvatarImgStore(Request $request, Student $student)
@@ -91,22 +97,28 @@ class StudentApiController extends Controller
         $request->validate([
             'img' => 'required|max:3240',
         ]);
-        $student = $student->getTokenId($request->header('token'));
         if ($request->hasFile('img')) {
-            Storage::delete($student->img);
-            $folder = $student->id;
+            Storage::delete($request->student->img);
+            $folder = $request->student->id;
             $img = $request->file('img')->store("students/{$folder}");
-            $result = DB::table('students')->where('id', $student->id)->update([
+            $result = DB::table('students')->where('id', $request->student->id)->update([
                 'img' => $img
             ]);
+            $student = $student->getTokenId($request->header('token'));
+            $src = asset("storage/{$student->img}");
         }
-        $student = $student->getTokenId($request->header('token'));
-        $src = asset("storage/{$student['img']}");
+        if ($request->animation == 1 && !$request->hasFile('img')) {
+            $result = DB::table('students')->where('id', $request->student->id)->update([
+                'img' => $request->img
+            ]);
+            $src = $request->img;
+        }
         return response()->json(
             [
                 'img' => $src,
             ]
         );
+
     }
 
 //    public function holidays(Request $request)
@@ -143,51 +155,119 @@ class StudentApiController extends Controller
 //        );
 //    }
 
-    public function changeLoginAndPassword(StudentChangeLP $request, Student $student)
+    public function changeLoginAndPassword(StudentChangeLP $request)
     {
         $validated = $request->validated();
-        $student = $student->getTokenId($request->header('token'));
-        $student = Student::find($student['id']);
+        $student = Student::getTokenId($request->header('token'));
+        $student = Student::find($student->id);
         $student->update(
             [
                 'login' => $request->login,
                 'password' => Hash::make($request->password),
             ]
         );
-        return response()->json('Данные изменились');
+        return response()->json(['message' => 'Данные изменились']);
     }
 
-    public function addComment(Request $request,Student $student){
-        $student=$student->getTokenId($request->header('token'));
+    public function addComment(Request $request, Student $student)
+    {
+//        $student=$student->getTokenId($request->header('token'));
         Post_comments::create(
             [
-                'post_id'=>$request->post,
-                'user_id'=>$student->id,
-                'worker'=>0,
-                'comment'=>$request->comment,
+                'post_id' => $request->post,
+                'user_id' => $request->student->id,
+                'worker' => 0,
+                'comment' => $request->comment,
             ]
         );
-        $post=Post::find($request->post);
-        $post->comment=$post->comment+1;
+        $post = Post::find($request->post);
+        $post->comment = $post->comment + 1;
         $post->save();
         return response()->json(
             [
-                'code'=>200,
+                'code' => 200,
             ]
         );
     }
 
-    public function getComment(Request $request){
-        $comments = Post_comments::with('student','workerG')->where(
+    public function getComment(Request $request)
+    {
+        $comments = Post_comments::with('student', 'workerG')->where(
             [
                 ['post_id', '=', $request->post],
                 ['delete', '=', '0'],
             ]
-        )->paginate(2);
+        )->paginate(5);
+        if($comments->items()==null) abort(404);
         foreach ($comments as $comment) {
-            $com[]=Post_comments::whoIsUser($comment,$comment->worker);
+            $com[] = Post_comments::whoIsUser($comment, $comment->worker);
         }
         return response()->json($com);
     }
+
+    public function getDeparmtents(Request $request)
+    {
+        $department = Department::where(
+            [
+                ['category', '=', 'Кафедра'],
+            ]
+        )->get(['id', 'img', 'title']);
+        return response()->json($department);
+    }
+
+    public function getDeparmtentWorker(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $worker = Worker::where(
+            [
+                ['delete', '=', 0],
+                ['department', '=', $request->id],
+                ['isteacher', '=', '1'],
+            ]
+        )->get(['name', 'surname', 'patronymic', 'rating', 'img', 'number', 'description']);
+        return response()->json($worker);
+    }
+
+    public function addRating(Request $request, Wrating $wrating)
+    {
+        $wrating->addRating($request);
+        return response()->json(
+            [
+                'code' => 200,
+            ]
+        );
+    }
+
+    public function getAccountInform(Request $request)
+    {
+        return response()->json($request->student);
+    }
+
+    public function getPosts(Request $request)
+    {
+        $posts = Post::with('department')->where(
+            [
+                ['status', '=', 'Опубликованный'],
+                ['delete', '=', 0]
+            ]
+        )->paginate(5);
+        if($posts->items()==null) abort(404);
+        foreach ($posts as $post) {
+            $allpost[] = new PostResource($post);
+        }
+        return response()->json($allpost);
+    }
+
+    public function createSuggestion(Request $request){
+        $suggestion=Suggestion::create([
+            'user_id'=>$request->student->id,
+            'worker'=>0,
+            'suggestion'=>$request->suggestion,
+        ]);
+        return response()->json([
+            'message'=>"Спасибо, вы вносите большой вклад, в развитие платформы",
+        ]);
+    }
+
+
 
 }

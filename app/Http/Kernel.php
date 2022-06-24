@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\StudentApi;
 use App\Http\Middleware\WorkerAPIDenary;
 use App\Http\Middleware\WorkerDenary;
 use App\Http\Middleware\WorkerUMO;
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'umo'=>WorkerUMO::class,
         'denary'=>WorkerAPIDenary::class,
+        'student'=>StudentApi::class,
     ];
 }

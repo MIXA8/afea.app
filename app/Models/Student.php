@@ -41,6 +41,11 @@ class Student extends Authenticatable
         return Student::where('token',$token)->select('id','img')->first();
     }
 
+    public function getTokenStudent($token)
+    {
+        return Student::where('token',$token)->get(['id','profile_id','base_id','login','token','img'])->first();
+    }
+
     public function base_inf()
     {
         return $this->belongsTo(Base_student::class,'base_id');

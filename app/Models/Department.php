@@ -16,4 +16,9 @@ class Department extends Model
     {
         return $this->hasMany(Worker::class, 'department', 'id');
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'id');
+    }
 }

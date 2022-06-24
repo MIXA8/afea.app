@@ -14,7 +14,6 @@ class DenaryWorkerApiController extends WorkerApiController
 
     public function addPass(Request $request)
     {
-//        $worker_id = Worker::getToken($request->header('token'));
         $message = $this->checkStudentRequestAttendances($request);
         foreach ($request->students as $student) {
             Pass::create(

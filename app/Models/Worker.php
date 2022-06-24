@@ -14,7 +14,7 @@ class Worker extends Authenticatable
 
 //    protected $guarded = 'worker';
     protected $fillable = [
-        'name', 'surname', 'patronymic', 'department', 'login', 'password', 'isteacher'
+        'name', 'surname', 'patronymic', 'department', 'login', 'password', 'isteacher','number','description'
     ];
 
     /**

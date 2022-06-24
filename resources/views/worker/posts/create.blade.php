@@ -14,7 +14,7 @@
     @csrf
     {{--    @dd($categorys)--}}
     <input type="text" name="title" value="ТС">
-    <input type="text" name="shorts" value="ТС">
+    <input type="text" name="short" value="ТС">
     <textarea  name="text" ></textarea>
     <img width="10%" src="{{ asset('/storage/'.$department->img) }}" >
     <input type="hidden" name="worker_id" value="{{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->id }}">

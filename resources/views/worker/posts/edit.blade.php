@@ -15,7 +15,7 @@
     @method('PUT')
     {{--    @dd($categorys)--}}
     <input type="text" name="title" value="{{ $post->title }}">
-    <input type="text" name="shorts" value="{{ $post->shorts }}">
+    <input type="text" name="short" value="{{ $post->shorts }}">
     <textarea  name="text" >{{ $post->text }}</textarea>
     <img width="10%" src="{{ asset('/storage/'.$department->img) }}" >
     <img width="10%" src="{{ asset('/storage/'.$post->img) }}" >

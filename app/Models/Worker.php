@@ -104,4 +104,11 @@ class Worker extends Authenticatable
         return Worker::where('token', $token)->select('id', 'img')->first();
     }
 
+    public function getimgAttribute($value){
+        if($value==null || $value==" "){
+            return asset('storage/standart/user.png');
+        }
+        return asset('storage/'.$value);
+    }
+
 }

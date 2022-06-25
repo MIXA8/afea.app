@@ -56,4 +56,11 @@ class Student extends Authenticatable
         return $this->hasMany(Post_comments::class,'id');
     }
 
+    public function getimgAttribute($value){
+        if($value==null || $value==" "){
+            return asset('storage/standart/user.png');
+        }
+        return asset('storage/'.$value);
+    }
+
 }

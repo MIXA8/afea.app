@@ -33,7 +33,7 @@ class DenaryWorkerApiController extends WorkerApiController
         return response()->json($message);
     }
 
-    protected function checkStudentRequestAttendances(Request $request): string
+    protected function checkStudentRequestAttendances(Request $request): array
     {
         $data = date("Y-m-d");
         $request_tab = Pass::where('lesson_part', '=', $request->lesson_part)
@@ -53,9 +53,9 @@ class DenaryWorkerApiController extends WorkerApiController
                         'delete'=>'1'
                     ]
                 );
-            return 'Данные пропусков перезаписаны';
+            return ['message'=>'Данные пропусков перезаписаны'];
         } else {
-            return 'Данные пропусков сохранены';
+            return ['message'=>'Данные пропусков сохранены'];
         }
     }
 

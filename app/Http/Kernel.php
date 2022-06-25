@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\StudentApi;
 use App\Http\Middleware\WorkerAPIDenary;
+use App\Http\Middleware\WorkerAPIMiddleware;
 use App\Http\Middleware\WorkerDenary;
 use App\Http\Middleware\WorkerUMO;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'umo'=>WorkerUMO::class,
         'denary'=>WorkerAPIDenary::class,
         'student'=>StudentApi::class,
+        'worker_api'=>WorkerAPIMiddleware::class,
     ];
 }

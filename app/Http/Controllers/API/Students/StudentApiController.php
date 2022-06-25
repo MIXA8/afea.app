@@ -197,7 +197,7 @@ class StudentApiController extends Controller
                 ['post_id', '=', $request->post],
                 ['delete', '=', '0'],
             ]
-        )->paginate(5);
+        )->orderByDesc('created_at')->paginate(5);
         if($comments->items()==null) abort(404);
         foreach ($comments as $comment) {
             $com[] = Post_comments::whoIsUser($comment, $comment->worker);
@@ -249,7 +249,7 @@ class StudentApiController extends Controller
                 ['status', '=', 'Опубликованный'],
                 ['delete', '=', 0]
             ]
-        )->paginate(5);
+        )->orderByDesc('created_at')->paginate(5);
         if($posts->items()==null) abort(404);
         foreach ($posts as $post) {
             $allpost[] = new PostResource($post);

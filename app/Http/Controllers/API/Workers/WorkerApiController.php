@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\API\Workers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\students\StudentChangeLP;
 use App\Http\Requests\API\workers\WorkerChangeLP;
-use App\Models\Holidays;
+use App\Models\Post;
 use App\Models\Post_comments;
 use App\Models\Profile;
-use App\Models\Student;
 use App\Models\Worker;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,39 +68,39 @@ class WorkerApiController extends Controller
         ], 200);
     }
 
-    public function holidays(Request $request)
-    {
-        $now = date('Y-m-d');
-        $holiday = Holidays::where('date', '<=', $now)
-            ->orWhere(
-                [
-                    [
-                        'long_days', '>=', $now,
-                    ],
-                    [
-                        'date', '<=', $now,
-                    ]
-                ]
-            )
-            ->select('id', 'title')->first();
-        $birthday = Profile::where(
-            [
-                [
-                    'worker_id', '=', $request->worker_id
-                ]
-            ]
-        )->select('birthday')->first();
-        if ($holiday == null) $holiday = 0;
-        $birthday = Carbon::parse(Carbon::create($birthday->birthday)->format('Y-m-d'));
-        if ($birthday->month == Carbon::now()->month && $birthday->day == Carbon::now()->day) $birthday = true;
-        else $birthday = false;
-        return response()->json(
-            [
-                'holiday' => $holiday,
-                'birthday' => $birthday,
-            ]
-        );
-    }
+//    public function holidays(Request $request)
+//    {
+//        $now = date('Y-m-d');
+//        $holiday = Holidays::where('date', '<=', $now)
+//            ->orWhere(
+//                [
+//                    [
+//                        'long_days', '>=', $now,
+//                    ],
+//                    [
+//                        'date', '<=', $now,
+//                    ]
+//                ]
+//            )
+//            ->select('id', 'title')->first();
+//        $birthday = Profile::where(
+//            [
+//                [
+//                    'worker_id', '=', $request->worker_id
+//                ]
+//            ]
+//        )->select('birthday')->first();
+//        if ($holiday == null) $holiday = 0;
+//        $birthday = Carbon::parse(Carbon::create($birthday->birthday)->format('Y-m-d'));
+//        if ($birthday->month == Carbon::now()->month && $birthday->day == Carbon::now()->day) $birthday = true;
+//        else $birthday = false;
+//        return response()->json(
+//            [
+//                'holiday' => $holiday,
+//                'birthday' => $birthday,
+//            ]
+//        );
+//    }
 
 
     public function changeAvatarImgStore(Request $request, Worker $worker)
@@ -132,8 +129,7 @@ class WorkerApiController extends Controller
     public function changeLoginAndPassword(WorkerChangeLP $request, Worker $worker)
     {
         $validated = $request->validated();
-        $worker = $worker->getTokenId($request->header('token'));
-        $worker = Student::find($worker['id']);
+        $worker = $worker->getTokenWorker($request->header('token'));
         $worker->update(
             [
                 'login' => $request->login,
@@ -143,22 +139,60 @@ class WorkerApiController extends Controller
         return response()->json('Данные изменились');
     }
 
-    public function addComment(Request $request,Worker $worker){
-        $worker=$worker->getTokenId($request->header('token'));
-//        dd($student->id);
+    public function addComment(Request $request)
+    {
         Post_comments::create(
             [
-                'post_id'=>$request->post,
-                'user_id'=>$worker->id,
-                'worker'=>1,
-                'comment'=>$request->comment,
+                'post_id' => $request->post,
+                'user_id' => $request->worker->id,
+                'worker' => 1,
+                'comment' => $request->comment,
             ]
         );
+        $post = Post::find($request->post);
+        $post->comment = $post->comment + 1;
+        $post->save();
         return response()->json(
             [
-                'code'=>200,
+                'code' => 200,
             ]
         );
     }
+
+    public function accountInf(Request $request){
+        return response()->json($request->worker);
+    }
+
+    public function personalInf(Request $request)
+    {
+//        dd($request->worker);
+        $information = Profile::where('worker_id', $request->worker->id)->get(['passport', 'citizenship', 'citizenship', 'PNFL', 'INN', 'birthday', 'place_birthday', 'year_start', 'sex', 'family_status'])->first();
+//        dd($information);
+        if ($information == null) return response()->json(['inform' => 'NULL']);
+        return response()->json($information);
+    }
+
+    public function updatePersonalInf(Request $request)
+    {
+        $information = Profile::firstOrNew([
+            'worker_id' => $request->worker->id
+        ]);
+        $information->passport = $request->passport;
+        $information->citizenship = $request->citizenship;
+        $information->PNFL = $request->PNFL;
+        $information->INN = $request->INN;
+        $information->birthday = $request->birthday;
+        $information->place_birthday = $request->place_birthday;
+        $information->year_start = $request->year_start;
+        $information->sex = $request->sex;
+        $information->family_status = $request->family_status;
+        $information->save();
+        return response()->json(
+            [
+                'code' => '200',
+            ]
+        );
+    }
+
 
 }

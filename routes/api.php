@@ -50,21 +50,34 @@ Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
 });
 
 
-Route::group(['prefix' => 'worker'], function () {
+Route::group(['prefix' => 'worker','middleware'=>'worker_api'], function () {
 
     Route::post('login', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'WorkerLogin']);
 
-    Route::get('worker/all/group', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'getGroups']);
+//    Route::get('holiday', [StudentApiController::class, 'holidays']);
 
-    Route::get('worker/get/{id}/group', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'getStudentsGroup']);
+    Route::post('change/login/password',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'changeLoginAndPassword']);
 
-    Route::post('worker/add/pass', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'addPass'])->middleware('denary');
+    Route::post('account/information',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'accountInf']);
 
-    Route::get('holiday', [StudentApiController::class, 'holidays']);
+    Route::get('personal/information',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'personalInf']);
 
-    Route::post('worker/img/change', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'changeAvatarImgStore']);
+    Route::post('personal/update/information',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'updatePersonalInf']);
 
-    Route::post('worker/add/comment', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'addComment']);
+    Route::post('img/change', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'changeAvatarImgStore']);
+
+    Route::post('add/comment', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'addComment']);
 
 });
 
+Route::group(['prefix' => 'worker/umo','middleware' => 'denary'], function () {
+
+    Route::get('all/group', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'getGroups']);
+
+    Route::get('{course}/group', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'getCourseGroups']);
+
+    Route::get('get/{id}/group', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'getStudentsGroup']);
+
+    Route::post('add/pass', [\App\Http\Controllers\API\Workers\Denary\DenaryWorkerApiController::class, 'addPass']);
+
+});

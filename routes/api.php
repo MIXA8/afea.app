@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
+
+Route::post('student/register', [StudentApiController::class, 'Studentauthorize']);
+
+Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiController@StudentLogin')->name('student.auth');
+
 Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
 
-    Route::post('register', [StudentApiController::class, 'Studentauthorize']);
-
-    Route::post('auth', 'App\Http\Controllers\API\Students\StudentApiController@StudentLogin')->name('student.auth');
+    Route::post('timetable', [\App\Http\Controllers\API\Students\Standart\TimeTableStudentController::class, 'getLessonForWeek']);
 
     Route::post('personal/information', [StudentApiController::class, 'personalInf']);
 
@@ -49,12 +52,9 @@ Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
 
 });
 
+Route::post('login', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'WorkerLogin']);
 
 Route::group(['prefix' => 'worker','middleware'=>'worker_api'], function () {
-
-    Route::post('login', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'WorkerLogin']);
-
-//    Route::get('holiday', [StudentApiController::class, 'holidays']);
 
     Route::post('change/login/password',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'changeLoginAndPassword']);
 
@@ -67,6 +67,8 @@ Route::group(['prefix' => 'worker','middleware'=>'worker_api'], function () {
     Route::post('img/change', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'changeAvatarImgStore']);
 
     Route::post('add/comment', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'addComment']);
+
+    Route::post('add/suggestion',[\App\Http\Controllers\API\Workers\WorkerApiController::class, 'createSuggestion']);
 
 });
 

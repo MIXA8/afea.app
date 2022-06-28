@@ -7,6 +7,7 @@ use App\Http\Requests\API\workers\WorkerChangeLP;
 use App\Models\Post;
 use App\Models\Post_comments;
 use App\Models\Profile;
+use App\Models\Suggestion;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -165,7 +166,6 @@ class WorkerApiController extends Controller
 
     public function personalInf(Request $request)
     {
-//        dd($request->worker);
         $information = Profile::where('worker_id', $request->worker->id)->get(['passport', 'citizenship', 'citizenship', 'PNFL', 'INN', 'birthday', 'place_birthday', 'year_start', 'sex', 'family_status'])->first();
 //        dd($information);
         if ($information == null) return response()->json(['inform' => 'NULL']);
@@ -192,6 +192,17 @@ class WorkerApiController extends Controller
                 'code' => '200',
             ]
         );
+    }
+
+    public function createSuggestion(Request $request){
+        $suggestion=Suggestion::create([
+            'user_id'=>$request->worker->id,
+            'worker'=>1,
+            'suggestion'=>$request->suggestion,
+        ]);
+        return response()->json([
+            'message'=>"Спасибо, вы вносите большой вклад, в развитие платформы",
+        ]);
     }
 
 

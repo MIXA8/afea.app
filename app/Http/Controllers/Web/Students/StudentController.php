@@ -99,6 +99,8 @@ class StudentController extends Controller
     }
 
 
+
+
     public function trueComment($id, bool $worker)
     {
         return Student::where('id', $id)->get('img');

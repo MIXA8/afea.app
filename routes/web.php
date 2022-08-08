@@ -17,10 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', 'App\Http\Controllers\Web\Workers\WorkerController@getForm')->name('index');
-Route::post('/test', 'App\Http\Controllers\Web\Workers\WorkerController@Workerauthorize')->name('indep');
-Route::get('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('WorkerLoginForm');
-Route::post('/testlogin', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('WorkerLogin');
+Route::get('/worker/registration', 'App\Http\Controllers\Web\Workers\WorkerController@getForm')->name('worker.registration.form');
+Route::post('/worker/registration', 'App\Http\Controllers\Web\Workers\WorkerController@Workerauthorize')->name('worker.registration');
+Route::get('/worker/authorization', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('worker.authorization.form');
+Route::post('/worker/authorization', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLogin')->name('worker.authorization');
+
+Route::get('worker/index','App\Http\Controllers\Web\Workers\WorkerController@WorkerIndex')->middleware('auth')->name('worker.index');
 
 
 

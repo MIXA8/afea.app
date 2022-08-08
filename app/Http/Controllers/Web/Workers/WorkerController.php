@@ -3,36 +3,24 @@
 namespace App\Http\Controllers\Web\Workers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\Workers\WokerRequestRegistr;
-use App\Models\Student;
+use App\Http\Requests\Web\Workers\WorkerAuthRequest;
+use App\Http\Requests\Web\Workers\WorkerRegistrRequest;
+use App\Models\Department;
 use App\Models\Worker;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class WorkerController extends Controller
 {
     public function getForm()
     {
-        return view('worker.create');
+        $departments = Department::select(['title', 'id'])->get();
+        return view('worker.register', compact('departments'));
     }
 
 
-    public function Workerauthorize(WokerRequestRegistr $request)
+    public function Workerauthorize(WorkerAuthRequest $request)
     {
-        $validated = $request->validated();
-        $student = DB::table('workers')->select('id')->where(
-            [
-                ['login', '=', $request->get('login')],
-            ])->first();
-        if ($student) {
-            return response()->json(
-                [
-                    'message' => "Логин уже занят",
-                ]
-            );
-        }
         Worker::create(
             [
                 'name' => $request->get('name'),
@@ -55,7 +43,7 @@ class WorkerController extends Controller
         return view('worker.login');
     }
 
-    public function WorkerLogin(Request $request)
+    public function WorkerLogin(WorkerRegistrRequest $request)
     {
         if (!Auth::guard('worker')->attempt(
             [
@@ -67,9 +55,11 @@ class WorkerController extends Controller
                 'errors' => 'Unauthorised'
             ]);
         }
-        return response()->json([
-            'message' => 'Вы успешео взашли на свой аккаунт',
-            'token_api' => Student::createToken(Auth::guard('worker')->user()->id),
-        ], 200);
+        return view('layout.worker');
+    }
+
+    public function WorkerIndex()
+    {
+        view('worker.index');
     }
 }

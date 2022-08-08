@@ -1,0 +1,68 @@
+#road{
+    display: flex;
+    float: right;
+}
+#stud{
+    display: flex;
+    float: left;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+#road, #stud{
+    margin-top: 15px;
+}
+#road a{
+    text-decoration: none;
+    color:black
+}
+#road a:last-child {
+    cursor: default;
+}
+.roadIcon {
+    transform: scale(0.8) translateX(-6px) translateY(-3px)
+}
+
+
+.innerBox {
+    margin: auto;
+    max-width: 98%;
+    width: 100%;
+    height: fit-content;
+    padding-top: 25px;
+    padding-bottom: 30px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 2px 2px 15px lightgrey;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
+
+#export-button_paginate {
+    margin-bottom:20px;
+}
+.card-header {
+    width: 100%;
+    display: flex;
+}
+#date {
+    border-radius: 8px;
+    width:100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 43px;
+}
+.btnDay {
+    width:fit-content;
+    padding: 10px;
+    border: 1px solid #7366ff;
+    color:white;
+    background-color:#7366ff;
+    border-radius: 8px;
+    cursor:pointer;
+}
+
+.form-control:focus {
+    box-shadow:none;
+}

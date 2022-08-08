@@ -22,14 +22,14 @@ class TimeTableResource extends JsonResource
                 'name' => $this->workerInf->name,
                 'surname' => $this->workerInf->surname,
                 'patronymic' => $this->workerInf->patronymic,
-                'img'=>$this->workerInf->img
+                'img' => $this->workerInf->img
             ],
             'time_start' => $this->time_start,
             'time_finish' => $this->time_finish,
-            'day'=>$this->day,
-            'month'=>$this->month,
-            'year'=>$this->year,
-            'date'=>$this->date,
+            'day' => $this->day,
+            'month' => $this->month,
+            'year' => $this->year,
+            'date' => $this->date,
 
         ];
     }

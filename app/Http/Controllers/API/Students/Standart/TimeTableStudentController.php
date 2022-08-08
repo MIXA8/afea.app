@@ -7,7 +7,6 @@ use App\Http\Resources\TimeTableResource;
 use App\Models\Timetable;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use function PHPUnit\Framework\isEmpty;
 
 class TimeTableStudentController extends Controller
 {
@@ -16,10 +15,10 @@ class TimeTableStudentController extends Controller
         $date = Carbon::parse(Carbon::create($request->year, $request->month, $request->day));
         $weekFirstDay = Carbon::parse($date->startOfWeek());
         $weekLastDay = Carbon::parse($date->endOfWeek());
-        $timeTable = Timetable::with('subjectInf')->where(
+        $timeTable = Timetable::with('subjectInf','workerInf')->where(
             'date', '>=', $weekFirstDay->format('Y-m-d')
         )->where(
-            'date','<=',$weekLastDay->format('Y-m-d')
+            'date','<',$weekLastDay->format('Y-m-d')
         )->where(
             'delete','=',0
         )->where(

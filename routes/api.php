@@ -52,7 +52,7 @@ Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
 
 });
 
-Route::post('login', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'WorkerLogin']);
+Route::post('worker/login', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'WorkerLogin']);
 
 Route::group(['prefix' => 'worker','middleware'=>'worker_api'], function () {
 

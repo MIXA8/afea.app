@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\Workers\Denary;
 use App\Http\Controllers\API\Workers\Functions\getStudents;
 use App\Http\Controllers\API\Workers\WorkerApiController;
 use App\Models\Pass;
-use App\Models\Worker;
 use Illuminate\Http\Request;
 
 class DenaryWorkerApiController extends WorkerApiController
@@ -58,5 +57,7 @@ class DenaryWorkerApiController extends WorkerApiController
             return ['message'=>'Данные пропусков сохранены'];
         }
     }
+
+
 
 }

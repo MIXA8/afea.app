@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Workers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\workers\WorkerChangeLP;
+use App\Http\Requests\API\Workers\WorkerChangeLP;
 use App\Models\Post;
 use App\Models\Post_comments;
 use App\Models\Profile;

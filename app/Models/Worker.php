@@ -42,9 +42,9 @@ class Worker extends Authenticatable
         return $this->hasMany(Worker_role::class, 'worker_id');
     }
 
-    public function department()
+    public function department_worker()
     {
-        return $this->belongsTo(Department::class, 'id', 'department');
+        return $this->belongsTo(Department::class, 'department', 'id');
     }
 
     public function comment()

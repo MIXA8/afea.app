@@ -5,7 +5,7 @@
 /* Стили каленжаря */
 
 #calendar_style_css {
-    width: 60%;
+    width: 100%;
     margin-top: 1%;
     /* float: left; */
     /* margin-left: auto; */
@@ -92,7 +92,7 @@ ul.nav-menus{
     margin: 2%;
     display: flex;
     justify-content: space-between;
-} 
+}
 
 .buttonsCourse{
     max-width: 18%;

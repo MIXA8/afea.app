@@ -27,7 +27,7 @@ class StudentChangeLP extends FormRequest
     public function rules()
     {
         return [
-            'login'=>'required|max:16|min:6',
+            'login'=>'required|max:16|min:6|unique:App\Models\User,login',
             'password'=>'required|max:16|min:6',
         ];
     }

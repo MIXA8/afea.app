@@ -55,11 +55,11 @@ class WorkerController extends Controller
                 'errors' => 'Unauthorised'
             ]);
         }
-        return view('layout.worker');
+        return view('worker.denary.index');
     }
 
     public function WorkerIndex()
     {
-        view('worker.index');
+        view('layout.worker');
     }
 }

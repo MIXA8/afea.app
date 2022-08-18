@@ -1,13 +1,17 @@
 @extends('layout.worker')
 
+@section('title')
+    Список групп
+@endsection
+
 @section('bread_crumbs')
     <div #poloska>
-        <div id="stud">Управления группамми</div>
+        <div id="stud">Управления группами</div>
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
-            <a href="#">&nbsp; Деаканат &nbsp;</a>/
-            <a href="#">&nbsp; Группы &nbsp;</a>/
+            <a href="#">&nbsp; Деканат &nbsp;</a>/
+            <a href="{{ route('group.index') }}">&nbsp; Группы &nbsp;</a>/
             <a href="#">&nbsp; {{$course}} курс &nbsp;</a>/
         </div>
     </div>
@@ -23,7 +27,7 @@
                 <a href="{{  route('group.create')}}">
                     <button class="btn btn-primary" type="submit">Добавить группу</button>
                 </a>
-                <button class="btn btn-primary" type="button">Добавить несколько групп</button>
+                <button class="btn btn-primary" type="button" onclick="window.location.href='{{ route('coming.soon') }}'" >Добавить несколько групп</button>
                 <hr>
                 <div class="poseshenie grid-align">
                     <div class="buttonCourse">
@@ -61,6 +65,7 @@
                                     <th scope="col" style="color: white">#</th>
                                     <th scope="col" style="color: white">Названия</th>
                                     <th scope="col" style="color: white">Кол.во студентов</th>
+                                    <th scope="col" style="color: white">Студенты</th>
                                     <th scope="col" style="color: white">Изменить</th>
                                     <th scope="col" style="color: white">Удалить</th>
                                 </tr>
@@ -72,6 +77,11 @@
                                         <td>{{ $group->title }}</td>
                                         <td>
                                             <a href="{{ route('worker.denary.group.all.student',['group'=>$group->id]) }}">{{ count($group->studentsGroup) }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('worker.denary.group.all.student',['group'=>$group->id]) }}"><button class="btn btn-pill btn-outline-primary btn-sm" type="submit">
+                                                    Список
+                                                </button></a>
                                         </td>
                                         <td>
                                             <form class="col-sm"

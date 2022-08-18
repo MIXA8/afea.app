@@ -19,6 +19,11 @@ class Base_student extends Model
         return $this->belongsTo(Group::class, 'group', 'id');
     }
 
+    public function statements()
+    {
+        return $this->hasMany(Statement::class, 'id', 'student_id');
+    }
+
     public function student()
     {
         return $this->hasOne(Student::class, 'base_id');

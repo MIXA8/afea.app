@@ -198,7 +198,7 @@ class StudentApiController extends Controller
                 ['delete', '=', '0'],
             ]
         )->orderByDesc('created_at')->paginate(5);
-        if($comments->items()==null) abort(404);
+        if($comments->items()==null) return response()->json(['code'=>300]);
         foreach ($comments as $comment) {
             $com[] = Post_comments::whoIsUser($comment, $comment->worker);
         }

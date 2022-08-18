@@ -1,12 +1,14 @@
 <div class="page-header">
     <div class="header-wrapper row m-0">
 
-        <div class="poisk">
-            <input class="input" type="text" placeholder="Поиск студентов">
-            <div class="searchbox">
-                <a href="#" class="searchbtn"><i class="fa-solid fa-magnifying-glass searchicon"></i></a>
-            </div>
-        </div>
+{{--        <div class="poisk">--}}
+{{--            <form action="">--}}
+{{--                <input class="input" type="text" placeholder="Поиск студентов">--}}
+{{--            </form>--}}
+{{--            <div class="searchbox">--}}
+{{--                <input type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass searchicon"></i>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 
         <form class="form-inline search-full col" action="#" method="get">
@@ -70,7 +72,7 @@
                             data-feather="maximize"></i></a></li>
                 <li class="profile-nav onhover-dropdown p-0 me-0">
                     <div class="media profile-media"><img width="40" class="b-r-10"
-                                                          src="{{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->img }}"
+                                                          src="{{ asset(Auth::guard('worker')->user()->img) }}"
                                                           alt="">
                         <div class="media-body"><span>{{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->name  }} {{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->patronymic  }} </span>
                             <p class="mb-0 font-roboto"> {{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->department_worker->title }} <i class="middle fa fa-angle-down"></i></p>
@@ -80,8 +82,8 @@
                         <li><a href="#"><i data-feather="user"></i><span>Аккаунт </span></a></li>
                         <!-- <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                         <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li> -->
-                        <li><a href="#"><i data-feather="settings"></i><span>Настройки</span></a></li>
-                        <li><a href="#"><i data-feather="log-in"> </i><span>Вход</span></a></li>
+                        <li><a href="{{ route('worker.setting') }}"><i data-feather="settings"></i><span>Настройки</span></a></li>
+                        <li><a href="{{ route('worker.logout') }}"><i data-feather="log-in"> </i><span>Выход</span></a></li>
                     </ul>
                 </li>
             </ul>

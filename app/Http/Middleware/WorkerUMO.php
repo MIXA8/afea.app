@@ -18,7 +18,7 @@ class WorkerUMO
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('worker')->user()->worker_access('UMO')){
+        if(Auth::guard('worker')->user() && ( Auth::guard('worker')->user()->getAccessValue('dean') || Auth::guard('worker')->user()->getAccessValue('lord'))){
             return $next($request);
         };
         return abort(404);

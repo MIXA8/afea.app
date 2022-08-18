@@ -1,14 +1,17 @@
 @extends('layout.worker')
 
+@section('title')
+    Изменение группы {{$group->title}}
+@endsection
 
 @section('bread_crumbs')
     <div #poloska>
-        <div id="stud">Управления группамми</div>
+        <div id="stud">Управления группами</div>
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
-            <a href="#">&nbsp; Деаканат &nbsp;</a>/
-            <a href="#">&nbsp; Группы &nbsp;</a>/
+            <a href="#">&nbsp; Деканат &nbsp;</a>/
+            <a href="{{ route('group.index') }}">&nbsp; Группы &nbsp;</a>/
             <a href="#">&nbsp; {{$group->title}} &nbsp;</a>/
         </div>
     </div>

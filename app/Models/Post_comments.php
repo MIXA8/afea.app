@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,14 +30,16 @@ class Post_comments extends Model
                 'comment' => $comment->comment,
                 'name_first' => $comment->student->base_inf->name,
                 'name_two' => $comment->student->base_inf->surname,
-                'img' => $comment->student->img
+                'img' => $comment->student->img,
+                'date'=>Carbon::make($comment->updated_at)->format('Y-m-d H-m-s'),
             ];
         } else {
             return $user = [
                 'comment' => $comment->comment,
                 'name_first' => $comment->workerG->name,
                 'name_two' => $comment->workerG->patronymic,
-                'img' => $comment->workerG->img
+                'img' => $comment->workerG->img,
+                'date'=>Carbon::make($comment->updated_at)->format('Y-m-d H-m-s'),
             ];
 
         }

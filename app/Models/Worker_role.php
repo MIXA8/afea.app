@@ -12,6 +12,6 @@ class Worker_role extends Model
     protected $table='worker_roles';
 
     public function worker(){
-        return $this->belongsTo(Worker::class,'id');
+        return $this->belongsTo(Worker::class,'id','worker_id');
     }
 }

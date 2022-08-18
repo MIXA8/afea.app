@@ -1,5 +1,8 @@
 @extends('layout.worker')
 
+{{--// http://afea/worker/denary/student/118/all/pass --}}
+
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/workers/css/style_calendar.css')  }}">
     <link rel="stylesheet" href="{{ asset('assets/workers/css/DataTable.css') }}">
@@ -7,6 +10,9 @@
     <link rel="stylesheet" href="{{ asset('assets/workers/css/datatables.css') }}">
 @endsection
 
+@section('title')
+    Список пропусков
+@endsection
 
 @section('bread_crumbs')
 
@@ -21,7 +27,8 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3 col-lg-6" onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>3,'date'=>$date]) }}'">
+    <div class="col-sm-6 col-xl-3 col-lg-6"
+         onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>3,'date'=>$date]) }}'">
         <div class="card o-hidden static-top-widget-card">
             <div class="card-body">
                 <div class="media static-top-widget">
@@ -29,7 +36,7 @@
                         <h6 class="font-roboto">Опозданий</h6>
                         <h4 class="mb-0 counter">{{ \App\Models\Pass::countPassSeason($allPass,$date,$student->id,3) }}</h4>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    <svg style="color: #7c4dff" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                          class="bi bi-watch" viewBox="0 0 16 16">
                         <path d="M8.5 5a.5.5 0 0 0-1 0v2.5H6a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V5z"/>
                         <path
@@ -47,7 +54,8 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3 col-lg-6" onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>1,'date'=>$date]) }}'">
+    <div class="col-sm-6 col-xl-3 col-lg-6"
+         onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>1,'date'=>$date]) }}'">
         <div class="card o-hidden">
             <div class="card-body">
                 <div class="media static-top-widget">
@@ -75,15 +83,16 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3 col-lg-6">
+    <div class="col-sm-6 col-xl-3 col-lg-6"
+         onclick="window.location.href='{{ route('worker.student.all.state',['id'=>$student->id,'date'=>$date]) }}'">
         <div class="card o-hidden">
             <div class="card-body">
                 <div class="media static-top-widget">
                     <div class="media-body">
                         <h6 class="font-roboto">Заявлений</h6>
-                        <h4 class="mb-0 counter">Сделать</h4>
+                        <h4 class="mb-0 counter">{{ \App\Models\Statement::countStateSeason($statements,$date) }}</h4>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="46" fill="currentColor"
+                    <svg style="color: #7c4dff" xmlns="http://www.w3.org/2000/svg" width="44" height="46" fill="currentColor"
                          class="bi bi-volume-up" viewBox="0 0 16 16">
                         <path
                             d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
@@ -103,7 +112,8 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3 col-lg-6" onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>2,'date'=>$date]) }}'">
+    <div class="col-sm-6 col-xl-3 col-lg-6"
+         onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>2,'date'=>$date]) }}'">
         <div class="card o-hidden">
             <div class="card-body">
                 <div class="media static-top-widget">
@@ -111,7 +121,7 @@
                         <h6 class="font-roboto">Уважительные</h6>
                         <h4 class="mb-0 counter">{{ \App\Models\Pass::countPassSeason($allPass,$date,$student->id,2) }}</h4>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
+                    <svg style="color: #7c4dff" xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
                          class="bi bi-check" viewBox="0 0 16 16">
                         <path
                             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
@@ -132,45 +142,46 @@
 @section('content')
     <div class="card">
         <form method="get" id="SubmitForm">
-            <h4>Получение списка({{ \App\Models\Pass::typePassHtml($_GET) }}): на  {{ \App\Models\Pass::initSeason($date) }} @if(!empty($_GET['pas'])) @if($_GET['pas']>0) <a href="{{ route('worker.student.all.pass',['id'=>$student->id,'date'=>$date]) }}">все данные</a> @endif @endif</h4>
+            <h4>Получение списка({{ \App\Models\Pass::typePassHtml($_GET) }}):
+                на {{ \App\Models\Pass::initSeason($date) }} @if(!empty($_GET['pas'])) @if($_GET['pas']>0) <a
+                    href="{{ route('worker.student.all.pass',['id'=>$student->id,'date'=>$date]) }}">все
+                    данные</a> @endif @endif</h4>
             <input type="date" name="date" id="calendar_style_css" value="{{ $date }}">
             @csrf
             <input type="submit" value="получить посещение">
         </form>
 
-        <div class="card-body">
             <div class="card-body">
                 <div class="dt-ext table-responsive" id="tablePDF">
 
-                @if( count($pass)>0)
+                    @if( count($pass)>0)
 
-                    <table class="table"  class="display" id="export-button">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Тип</th>
-                            <th>Дата</th>
-                            <th>Пара</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($pass as $passtudents)
+                        <table class="table" class="display" id="export-button">
+                            <thead>
                             <tr>
-                                <td>{{  $loop->index +1 }}</td>
-                                <td>{{ $passtudents->typePass() }}</td>
-                                <td>{{ $passtudents->day }}.{{ $passtudents->month }}.{{ $passtudents->year }}</td>
-                                <td>{{ $passtudents->lesson_part }}</td>
+                                <th>#</th>
+                                <th>Тип</th>
+                                <th>Дата</th>
+                                <th>Пара</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <h1>Пропусков нет</h1>
-                @endif
+                            </thead>
+                            <tbody>
+                            @foreach($pass as $passtudents)
+                                <tr>
+                                    <td>{{  $loop->index +1 }}</td>
+                                    <td>{{ $passtudents->typePass() }}</td>
+                                    <td>{{ $passtudents->day }}.{{ $passtudents->month }}.{{ $passtudents->year }}</td>
+                                    <td>{{ $passtudents->lesson_part }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <h1>Пропусков нет</h1>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
-    </div>
 @endsection
 
 @section('js')

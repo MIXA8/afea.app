@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -26,6 +27,7 @@ class PostResource extends JsonResource
                 'img'=>asset('storage/'.$this->department->img),
             ],
             'comment'=> $this->comment,
+            'date'=>Carbon::make($this->updated_at)->format('Y-m-d H-m-s'),
         ];
     }
 }

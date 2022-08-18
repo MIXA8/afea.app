@@ -20,6 +20,7 @@ class CommentResource extends JsonResource
             'first_name'=>Post_comments::whoIsUserFirstName($this,$this->worker),
             'second_name'=>Post_comments::whoIsUserSecondName($this,$this->worker),
             'img'=>Post_comments::whoIsUserImg($this,$this->worker),
+            'date'=>$this->updated_at,
         ];
     }
 }

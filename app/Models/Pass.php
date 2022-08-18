@@ -26,7 +26,7 @@ class Pass extends Model
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
-    public function passForm($pass)
+    static function passForm($pass)
     {
 
         if (count($pass) > 0) {
@@ -46,14 +46,13 @@ class Pass extends Model
                                   <option value="1" class="option_up" >НБ</option>
                                   <option value="2" class="option_nup" >УП</option>
                                   <option value="3" class="option_op" selected>ОП</option>';
-            }
-            elseif ($pass->first()->pass == 0) {
+            } elseif ($pass->first()->pass == 0) {
                 return '
                                   <option value="0" class="option_plus" style="background - color: red;" selected>+</option>
                                   <option value="1" class="option_up" >НБ</option>
                                   <option value="2" class="option_nup" >УП</option>
                                   <option value="3" class="option_op" >ОП</option>';
-            }else{
+            } else {
                 return ' <option value="0" class="option_plus" style="background - color: red;" selected>+</option>
                                   <option value="1" class="option_up" >НБ</option>
                                   <option value="2" class="option_nup" >УП</option>
@@ -68,7 +67,7 @@ class Pass extends Model
     }
 
 
-    public function countPassSeason($pass, $date, $id, $num = 1)
+    static function countPassSeason($pass, $date, $id, $num = 1)
     {
         if (Carbon::make($date)->month > 1 && Carbon::make($date)->month < 9) {
             return count($pass->where('student_id', $id)->where('month', '<', 9)->where('month', '>', 1)->where('pass', $num));
@@ -103,6 +102,25 @@ class Pass extends Model
             }
         }
         return '--';
+    }
+
+    public function fromHtml($pass)
+    {
+        if (count($pass) > 0) {
+            if ($pass->first()->pass == 1) {
+                return 'НБ';
+            } elseif ($pass->first()->pass == 2) {
+                return 'УП';
+            } elseif ($pass->first()->pass == 3) {
+                return 'ОП';
+            } elseif ($pass->first()->pass == 0) {
+                return '+';
+            } else {
+                return '+';
+            }
+        } else {
+            return '+';
+        }
     }
 
     public function typePass()

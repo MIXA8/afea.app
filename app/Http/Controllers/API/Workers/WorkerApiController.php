@@ -111,7 +111,8 @@ class WorkerApiController extends Controller
         ]);
         $worker = $worker->getTokenId($request->header('token'));
         if ($request->hasFile('img')) {
-            Storage::delete($worker->img);
+            $oldImg=$worker->getImgValueBase();
+            Storage::delete($oldImg);
             $folder = $worker->id;
             $img = $request->file('img')->store("workers/{$folder}");
             $result = DB::table('workers')->where('id', $worker->id)->update([
@@ -119,10 +120,10 @@ class WorkerApiController extends Controller
             ]);
         }
         $worker = $worker->getTokenId($request->header('token'));
-        $src = asset("storage/{$worker['img']}");
+//        $src = asset("{$worker['img']}");
         return response()->json(
             [
-                'img' => $src,
+                'img' => $worker['img'],
             ]
         );
     }

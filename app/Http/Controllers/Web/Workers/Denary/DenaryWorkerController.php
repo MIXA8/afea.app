@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\Workers\WorkerController;
 use App\Models\Base_student;
 use App\Models\Group;
 use App\Models\Pass;
+use App\Models\Statement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,8 @@ class DenaryWorkerController extends WorkerController
 
         return view('worker.denary.passedit', compact('date', 'group', 'passes', 'allPass'));
     }
+
+
 
     public function addPass(Request $request)
     {
@@ -82,6 +85,7 @@ class DenaryWorkerController extends WorkerController
         $information->year_finish = $request->year_finish;
         $information->n_contract = $request->n_contract;
         $information->update($request->all());
+        return redirect()->back()->with('success','Студент изменен');
     }
 
     public function studentInformation(Request $request)
@@ -90,14 +94,11 @@ class DenaryWorkerController extends WorkerController
         $pass = Pass::where('student_id', $request->id)->where('delete', 0)->get();
         $student = Base_student::find($request->id);
         $groups = Group::select(['id', 'title'])->where('delete', 0)->get();
-        return view('worker.denary.student', compact('student', 'groups', 'pass', 'date'));
+        $statements=Statement::with('student')->where('student_id',$student->id)->get();
+        return view('worker.denary.student', compact('student', 'groups', 'pass', 'date','statements'));
     }
 
-    public function studentsGroupCreate(Request $request){
-        $group=Group::where('id',$request->group)->first();
-        $students=Base_student::where('group',$request->group)->get();
-        return view('worker.denary.groups.liststudent',compact('students','group'));
-    }
+
 
     public function studentCreate(Request $request){
         $group=$request->group;
@@ -126,7 +127,7 @@ class DenaryWorkerController extends WorkerController
             ]
         );
 //        Base_student::created($request->all());
-        dd($request);
+        return redirect()->back()->with('success','Студент добавлен');
     }
 
 

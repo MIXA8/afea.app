@@ -1,14 +1,17 @@
 @extends('layout.worker')
 
+@section('title')
+    Создание новой группы
+@endsection
 
 @section('bread_crumbs')
     <div #poloska>
-        <div id="stud">Управления группамми</div>
+        <div id="stud">Управления группами</div>
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
-            <a href="{{ route('worker.denary.index') }}">&nbsp; Деаканат &nbsp;</a>/
-            <a href="#">&nbsp; Группы &nbsp;</a>/
+            <a href="{{ route('worker.denary.index') }}">&nbsp; Деканат &nbsp;</a>/
+            <a href="{{ route('group.index') }}">&nbsp; Группы &nbsp;</a>/
             <a href="#">&nbsp; новая группа &nbsp;</a>/
         </div>
     </div>

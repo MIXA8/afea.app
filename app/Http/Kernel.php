@@ -3,6 +3,9 @@
 namespace App\Http;
 
 use App\Http\Middleware\StudentApi;
+use App\Http\Middleware\WebStandartGetStudent;
+use App\Http\Middleware\WebWorker;
+use App\Http\Middleware\WebWorkerDenary;
 use App\Http\Middleware\WorkerAPIDenary;
 use App\Http\Middleware\WorkerAPIMiddleware;
 use App\Http\Middleware\WorkerUMO;
@@ -71,5 +74,8 @@ class Kernel extends HttpKernel
         'denary'=>WorkerAPIDenary::class,
         'student'=>StudentApi::class,
         'worker_api'=>WorkerAPIMiddleware::class,
+        'worker'=>WebWorker::class,
+        'webworkerdenary'=>WebWorkerDenary::class,
+        'webstandartgets'=>WebStandartGetStudent::class,
     ];
 }

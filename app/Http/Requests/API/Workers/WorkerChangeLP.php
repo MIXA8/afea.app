@@ -27,7 +27,7 @@ class WorkerChangeLP extends FormRequest
     {
         return [
             'login'=>'required|max:16|min:6|unique:App\Models\Worker,login',
-            'password'=>'required|max:16|min:6'
+            'password'=>'required|max:16|min:6|confirmed'
         ];
     }
 

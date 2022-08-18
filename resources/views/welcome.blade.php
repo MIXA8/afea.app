@@ -130,3 +130,93 @@
         </div>
     </body>
 </html>
+{{--
+<div class="card-body">
+                    <div class="dt-ext table-responsive" id="tablePDF">
+                        <table class="display" id="export-button">
+                            <thead>
+                            <tr>
+                                <th>ФИО студента</th>
+                                <th>1 пара</th>
+                                <th>2 пара</th>
+                                <th>3 пара</th>
+                                <th>4 пара</th>
+                                <th>5 пара</th>
+                                <th>Общее</th>
+                                <th>За семестр</th>
+                            </tr>
+                            </thead>
+                            <tbody id="fuck">
+                            @foreach($group->studentsGroup as $student)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('worker.student.information',['id'=>$student->id]) }}"> {{ $student->name }} {{ $student->surname }} {{ $student->patronymic }}</a>
+                                    </td>
+                                    <td>
+                                        <select name="lesson" data-match="1" data-group="{{ $student->group }}"
+                                                data-url="{{ route('worker.add.pass') }}"
+                                                data-student="{{ $student->id }}"
+                                                id="lesson"
+                                                class="java">
+                                            @php
+                                                $match_1=$passes->where('student_id',$student->id)->where('lesson_part',1);
+                                            @endphp
+                                            {!!  \App\Models\Pass::passForm($match_1) !!}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="lesson" data-match="2" data-group="{{ $student->group }}"
+                                                data-url="{{ route('worker.add.pass') }}"
+                                                data-student="{{ $student->id }}"
+                                                id="lesson"
+                                                class="java">
+                                            @php
+                                                $match_2=$passes->where('student_id',$student->id)->where('lesson_part',2);
+                                            @endphp
+                                            {!! \App\Models\Pass::passForm($match_2) !!}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="lesson" data-match="3" data-group="{{ $student->group }}"
+                                                data-url="{{ route('worker.add.pass') }}"
+                                                data-student="{{ $student->id }}"
+                                                id="lesson"
+                                                class="java">
+                                            @php
+                                                $match_3=$passes->where('student_id',$student->id)->where('lesson_part',3);
+                                            @endphp
+                                            {!! \App\Models\Pass::passForm($match_3) !!}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="lesson" data-match="4" data-group="{{ $student->group }}"
+                                                data-url="{{ route('worker.add.pass') }}"
+                                                data-student="{{ $student->id }}"
+                                                id="lesson"
+                                                class="java">
+                                            @php
+                                                $match_4=$passes->where('student_id',$student->id)->where('lesson_part',4);
+                                            @endphp
+                                            {!! \App\Models\Pass::passForm($match_4) !!}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="lesson" data-match="5" data-group="{{ $student->group }}"
+                                                data-url="{{ route('worker.add.pass') }}"
+                                                data-student="{{ $student->id }}"
+                                                id="lesson"
+                                                class="java">
+                                            @php
+                                                $match_5=$passes->where('student_id',$student->id)->where('lesson_part',5);
+                                            @endphp
+                                            {!! \App\Models\Pass::passForm($match_5) !!}
+                                        </select>
+                                    </td>
+                                    <td> {{ count($passes->where('student_id',$student->id)->where('day',\Carbon\Carbon::create($date)->day)->where('month',\Carbon\Carbon::create($date)->month)->where('year',\Carbon\Carbon::create($date)->year)->where('pass',1)) }}</td>
+                                    <td> {{ \App\Models\Pass::countPassSeason($allPass,$date,$student->id) }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>--}}

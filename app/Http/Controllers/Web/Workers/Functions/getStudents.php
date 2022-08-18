@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Web\Workers\Functions;
 use App\Models\Base_student;
 use App\Models\Group;
 use App\Models\Pass;
+use App\Models\Statement;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 trait getStudents
 {
@@ -64,10 +66,32 @@ trait getStudents
             [
                 ['course', '=', $course],
                 ['study', '=', 1],
-                ['delete','=',0],
+                ['delete', '=', 0],
             ]
         )->get();
         return $groups;
+    }
+
+    public function groupPassPDF(Request $request)
+    {
+        $date = $this->dateAttendance($request->date, $request->mod);
+        $group = $this->groupAttendanceForList($request->group);
+        $passes = Pass::where(
+            [
+                ['day', '=', Carbon::create($date)->day],
+                ['month', '=', Carbon::create($date)->month],
+                ['year', '=', Carbon::create($date)->year],
+                ['group_id', '=', $group->id],
+                ['delete', '=', 0],
+            ]
+        )->get();
+        $allPass = Pass::where(
+            [
+                ['group_id', '=', $group->id],
+                ['delete', '=', 0],
+            ]
+        )->get();
+        return view('worker..standart.getstudent.htmlpdf', compact('date', 'group', 'passes', 'allPass'));
     }
 
     protected function groupAttendanceForList($id)
@@ -86,7 +110,8 @@ trait getStudents
         $date = Carbon::now()->format('d-m-Y');
         $pass = Pass::where('student_id', $request->id)->where('delete', 0)->get();
         $student = Base_student::with('title')->find($request->id);
-        return view('worker.standart.getstudent.informstudent', compact('date', 'pass', 'student'));
+        $statements = Statement::with('student')->where('student_id', $student->id)->where('delete',0)->get();
+        return view('worker.standart.getstudent.informstudent', compact('date', 'pass', 'student', 'statements'));
     }
 
     protected function initSeason($date)
@@ -122,9 +147,27 @@ trait getStudents
         $allPass = $this->studentPassSeason(null, $request->id, $season);
         $pass = $this->studentPassSeason($request->pas, $request->id, $season);
         $student = Base_student::with('title')->find($request->id);
-        return view('worker.standart.getstudent.studentpass', compact('date', 'pass', 'student', 'allPass'));
+        $statements = Statement::with('student')->where('student_id', $student->id)->where('delete',0)->get();
+        return view('worker.standart.getstudent.studentpass', compact('date', 'pass', 'student', 'allPass', 'statements'));
     }
 
+    public function studentStatementAll(Request $request)
+    {
+        $date = $this->dateAttendance($request->date, $request->mod);
+        $season = $this->initSeason($date);
+        $allPass = $this->studentPassSeason(null, $request->id, $season);
+        $pass = $this->studentPassSeason($request->pas, $request->id, $season);
+        $student = Base_student::with('title')->find($request->id);
+        $statements = Statement::with('student')->where('student_id', $student->id)->where('delete',0)->get();
+        return view('worker.standart.getstudent.statementstudent', compact('date', 'pass', 'student', 'allPass', 'statements'));
+    }
+
+
+    public function showStatement(Statement $statement)
+    {
+        $student = Base_student::where('id', $statement->id)->first();
+        return view('worker.denary.statements.show', compact('student', 'statement'));
+    }
 
     public function studentsGroup(Request $request){
         $group=Group::where('id',$request->group)->first();

@@ -23,7 +23,7 @@ class DenaryGroupController extends Controller
                 ['delete', '=', 0],
             ]
         )->select(['id', 'title'])->get();
-        return view('worker.denary.groups.index', compact('groups', 'course'));
+        return view('worker.denary.groups.index', compact('groups', 'course'))->with('success', 'Группа создана');
     }
 
     /**
@@ -109,13 +109,12 @@ class DenaryGroupController extends Controller
      */
     public function destroy(Group $group)
     {
-
         $group->update(
             [
                 'delete' => 1,
             ]
         );
-        return redirect()->back()->with('warning', 'Группа не обновилась');
+        return redirect()->back()->with('success', 'Группа удалилась');
     }
 
 

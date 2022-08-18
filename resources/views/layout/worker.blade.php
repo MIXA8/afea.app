@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+          content="Простая платформа для использование и для облегчения жизни">
     <meta name="keywords"
-          content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
+          content="connect, connect-gubkin, connect-platform">
 
     @yield('meta')
-    <meta name="author" content="pixelstrap">
+    <meta name="author" content="dreamers">
     <link rel="icon" href="{{ asset('assets/workers/images/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/workers/images/favicon.png') }}" type="image/x-icon">
 
-    <title>Cuba - Premium Admin Template</title>
+    <title>@yield('title')</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
           rel="stylesheet">
@@ -70,12 +70,13 @@
         <div class="container-fluid">
             <div class="row second-chart-list third-news-update">
 
-                @yield('bread_crumbs')
+            @yield('bread_crumbs')
 
-                <!-- Календарь -->
+            @include('layout.section.alert')
+            <!-- Календарь -->
 
-                @yield('content')
-                <!-- <div class="col-xl-4 col-lg-12 xl-50 calendar-sec box-col-6" id="calendar_style_css">
+            @yield('content')
+            <!-- <div class="col-xl-4 col-lg-12 xl-50 calendar-sec box-col-6" id="calendar_style_css">
                   <div class="card gradient-primary o-hidden">
                     <div class="card-body">
                       <div class="setting-dot">

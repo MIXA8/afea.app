@@ -4,13 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
-    <meta name="keywords"
-          content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="pixelstrap">
-
-    <title>Cuba - Premium Admin Template</title>
+    <title>Авторизация</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
           rel="stylesheet">
@@ -47,6 +41,9 @@
                             @csrf
                             <h4>Войти в аккаунт</h4>
                             <p>Введите логин и пароль для входа</p>
+                            @if (session()->has('not-login'))
+                                <h6 style="color: red">Не правильный логин или пароль</h6>
+                            @endif
                             <div class="form-group">
                                 <label class="col-form-label">Логин</label>
                                 <input class="form-control" type="text" name="login" required="" placeholder="Логин">

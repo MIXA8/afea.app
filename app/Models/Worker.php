@@ -39,7 +39,7 @@ class Worker extends Authenticatable
 
     public function access()
     {
-        return $this->hasMany(Worker_role::class, 'worker_id');
+        return $this->hasMany(Worker_role::class, 'worker_id','id');
     }
 
     public function department_worker()
@@ -47,21 +47,25 @@ class Worker extends Authenticatable
         return $this->belongsTo(Department::class, 'department', 'id');
     }
 
+    public function worker_profile(){
+        return $this->hasOne(Department::class, 'id', 'profile_id');
+    }
+
     public function comment()
     {
         return $this->hasMany(Post_comments::class,'id');
     }
 
-    public function worker_access($middleware_access)
-    {
-        $accesses = Worker_role::where('worker_id', Auth::guard('worker')->user()->id)->get(['access']);
-        foreach ($accesses as $access) {
-            if ($access->access == $middleware_access) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public function worker_access($middleware_access)
+//    {
+//        $accesses = Worker_role::where('worker_id', Auth::guard('worker')->user()->id)->get(['access']);
+//        foreach ($accesses as $access) {
+//            if ($access->access == $middleware_access) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public function worker_access_api($middleware_access){
         foreach ($this->access as $access) {
@@ -104,11 +108,33 @@ class Worker extends Authenticatable
         return Worker::where('token', $token)->select('id', 'img')->first();
     }
 
+    public function getImgValueBase(){
+        $img=Str::after($this->img,env('APP_URL'));
+        if($img =="/storage/standart/user.png"){
+            return '';
+        }else{
+            $img=Str::after($img,"storage/");
+            return $img;
+        }
+
+    }
+
+
     public function getimgAttribute($value){
         if($value==null || $value==" "){
             return asset('storage/standart/user.png');
         }
         return asset('storage/'.$value);
+    }
+
+
+    public function getAccessValue($value){
+        foreach ($this->access as $acc){
+            if($acc->access==$value){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

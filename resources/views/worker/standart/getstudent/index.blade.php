@@ -1,14 +1,17 @@
 @extends('layout.worker')
 
+@section('title')
+    Список Студентов
+@endsection
 
 @section('bread_crumbs')
 
     <div #poloska>
-        <div id="stud">Посещяемость</div>
+        <div id="stud">Посещаемость</div>
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
-            <a href="{{ route('worker.denary.index') }}">&nbsp; Деаканат &nbsp;</a>/
+            <a href="{{ route('worker.denary.index') }}">&nbsp; Деканат &nbsp;</a>/
             <a href="{{ route('worker.denary.index',['date'=>$date]) }}">&nbsp; {{ $date }}</a>
         </div>
     </div>
@@ -87,49 +90,51 @@
         </div>
         <div class="tableBox">
             @if(count($groups)>0)
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Группа</th>
-                    <th>Количсетво студентов</th>
-                    <th>Отсутствуют</th>
-                    <th>Посещаемость</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach($groups as $group)
-                    @php
-                        $count_students= count($group->studentsGroup);
-                        $count_passes = count($group->studentsPasses->where('day','=',\Carbon\Carbon::make($date)->day)
-                             ->where('month','=',\Carbon\Carbon::make($date)->month)
-                             ->where('year','=',\Carbon\Carbon::make($date)->year)
-                             ->where('month','=',\Carbon\Carbon::make($date)->month)
-                             ->where('lesson_part','=',$match)
-                             ->where('delete','=',0));
-
-                        if($count_passes==0){
-                            if($count_students!=0){
-                                $precent=100;
-                            }
-                            $precent= "неизвестно";
-                        }
-                        else{
-                            $precent=100-((100)*$count_passes)/$count_students;
-                            $precent=round($precent,2);
-                        }
-                    @endphp
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>{{ $loop->index +1 }}</td>
-                        <td><a href="{{ route('pass.edit',['group'=>$group->id]) }}">{{ $group->title }}</a></td>
-                        <td>{{ $count_students }}</td>
-                        <td>{{  $count_passes }}</td>
-                        <td>{{ $precent }}&nbsp;%</td>
+                        <th>#</th>
+                        <th>Группа</th>
+                        <th>Количсетво студентов</th>
+                        <th>Отсутствуют</th>
+                        <th>Посещаемость</th>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+
+                    @foreach($groups as $group)
+                        @php
+                            $count_students= count($group->studentsGroup);
+                            $count_passes = count($group->studentsPasses->where('day','=',\Carbon\Carbon::make($date)->day)
+                                 ->where('month','=',\Carbon\Carbon::make($date)->month)
+                                 ->where('year','=',\Carbon\Carbon::make($date)->year)
+                                 ->where('month','=',\Carbon\Carbon::make($date)->month)
+                                 ->where('lesson_part','=',$match)
+                                 ->where('delete','=',0));
+
+                            if($count_passes==0){
+                                if($count_students!=0){
+                                     $precent=100;
+                                }else{
+                                    $precent= "неизвестно";
+                                }
+
+                            }
+                            else{
+                                $precent=100-((100)*$count_passes)/$count_students;
+                                $precent=round($precent,2);
+                            }
+                        @endphp
+                        <tr>
+                            <td>{{ $loop->index +1 }}</td>
+                            <td><a href="{{ route('pass.pdf',['group'=>$group->id]) }}">{{ $group->title }}</a></td>
+                            <td>{{ $count_students }}</td>
+                            <td>{{  $count_passes }}</td>
+                            <td>{{ $precent }}&nbsp;%</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             @else
                 <h1>Групп нет</h1>
             @endif

@@ -1,6 +1,9 @@
 @extends('layout.worker')
 
-
+@section('title')
+    Информация: {{ $student->name }} {{ $student->surname }}
+@endsection
+{{--http://afea/worker/denary/student/118/information--}}
 @section('bread_crumbs')
 
     <div #poloska>
@@ -8,7 +11,7 @@
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
-            <a href="{{ route('worker.denary.index') }}">&nbsp; Деаканат &nbsp;</a>/
+            <a href="{{ route('worker.denary.index') }}">&nbsp; Деканат &nbsp;</a>/
             <a href="{{ route('worker.denary.group.all.student',['group'=>$student->group]) }}">&nbsp; {{ $student->title->title }}
                 &nbsp;</a>/
             <a href="{{ route('worker.student.information',['id'=>$student->id]) }}">&nbsp; {{ $student->name }}
@@ -25,7 +28,7 @@
                         <h6 class="font-roboto">Опозданий</h6>
                         <h4 class="mb-0 counter">{{ \App\Models\Pass::countPassSeason($pass,$date,$student->id,3) }}</h4>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    <svg style="color: #7c4dff" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                          class="bi bi-watch" viewBox="0 0 16 16">
                         <path d="M8.5 5a.5.5 0 0 0-1 0v2.5H6a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V5z"/>
                         <path
@@ -73,15 +76,15 @@
     </div>
 
     <div class="col-sm-6 col-xl-3 col-lg-6"
-         onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>2,'date'=>$date]) }}'">
+         onclick="window.location.href='{{ route('worker.student.all.state',['id'=>$student->id,'date'=>$date]) }}'">
         <div class="card o-hidden">
             <div class="card-body">
                 <div class="media static-top-widget">
                     <div class="media-body">
                         <h6 class="font-roboto">Заявлений</h6>
-                        <h4 class="mb-0 counter">Сделать</h4>
+                        <h4 class="mb-0 counter">{{ \App\Models\Statement::countStateSeason($statements,$date) }}</h4>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="46" fill="currentColor"
+                    <svg style="color: #7c4dff" xmlns="http://www.w3.org/2000/svg" width="44" height="46" fill="currentColor"
                          class="bi bi-volume-up" viewBox="0 0 16 16">
                         <path
                             d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
@@ -101,7 +104,8 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3 col-lg-6">
+    <div class="col-sm-6 col-xl-3 col-lg-6"
+         onclick="window.location.href='{{ route('worker.student.all.pass',['id'=>$student->id,'pas'=>2,'date'=>$date]) }}'">
         <div class="card o-hidden">
             <div class="card-body">
                 <div class="media static-top-widget">
@@ -109,7 +113,7 @@
                         <h6 class="font-roboto">Уважительные</h6>
                         <h4 class="mb-0 counter">{{ \App\Models\Pass::countPassSeason($pass,$date,$student->id,2) }}</h4>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
+                    <svg style="color: #7c4dff" xmlns="http://www.w3.org/2000/svg" width="60" height="40" fill="currentColor"
                          class="bi bi-check" viewBox="0 0 16 16">
                         <path
                             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
@@ -266,7 +270,7 @@
                         <div class="invalid-feedback">Please provide a valid zip.</div>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Submit form</button>
+                <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Изменить</button>
             </form>
         </div>
     </div>

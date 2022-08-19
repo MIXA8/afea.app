@@ -1,6 +1,5 @@
 <div class="page-header">
     <div class="header-wrapper row m-0">
-
 {{--        <div class="poisk">--}}
 {{--            <form action="">--}}
 {{--                <input class="input" type="text" placeholder="Поиск студентов">--}}

@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable=['title','text','shorts','slug','img','worker_id','department_id','status','comment','views'];
 
-    public function department(){
-        return $this->belongsTo(Department::class,'department_id');
+    protected $fillable = ['title', 'text', 'shorts', 'slug', 'img', 'worker_id', 'department_id', 'status', 'comment', 'views','delete'];
+    static $status = [
+        [
+            'id' => 0,
+            'title' => 'Опубликованный'
+        ],
+    ];
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 }

@@ -9,10 +9,12 @@
 </head>
 <body>
 @php( var_dump($errors) )
+
 <form action="{{ route('timetable.store') }}" method="post">
     @csrf
     <select id="subject" name="subject">
         @foreach($subjects as $subject)
+            {{ dd($subject) }}
             <option class="subject_button"
                     value="{{ $subject->id }}"
                     data-worker="{{ $subject->worker->id }}">{{ $subject->title }} {{ $subject->worker->name }} {{ $subject->worker->patronymic }}</option>

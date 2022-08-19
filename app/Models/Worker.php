@@ -28,7 +28,7 @@ class Worker extends Authenticatable
 
     public function timeTable()
     {
-        return $this->hasMany(Timetable::class,'id');
+        return $this->hasMany(Timetable::class,'worker_id');
     }
 
     public function subject()

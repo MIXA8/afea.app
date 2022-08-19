@@ -39,7 +39,10 @@ Route::group(['prefix' => 'worker/umo/', 'middleware' => 'umo'], function () {
 
 });
 
+Route::group(['prefix' => 'lord', ], function () {
+    Route::resource('post', \App\Http\Controllers\Web\Workers\Lord\Post\PostLordController::class);
 
+});
 
 Route::group(['prefix' => 'worker/', 'middleware' => 'worker'], function () {
     Route::get('coming-soon', 'App\Http\Controllers\Controller@commingSoon')->name('coming.soon');

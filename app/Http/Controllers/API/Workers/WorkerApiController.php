@@ -7,6 +7,7 @@ use App\Http\Requests\API\Workers\WorkerChangeLP;
 use App\Models\Post;
 use App\Models\Post_comments;
 use App\Models\Profile;
+use App\Models\Setting;
 use App\Models\Suggestion;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -111,7 +112,7 @@ class WorkerApiController extends Controller
         ]);
         $worker = $worker->getTokenId($request->header('token'));
         if ($request->hasFile('img')) {
-            $oldImg=$worker->getImgValueBase();
+            $oldImg = $worker->getImgValueBase();
             Storage::delete($oldImg);
             $folder = $worker->id;
             $img = $request->file('img')->store("workers/{$folder}");
@@ -161,14 +162,14 @@ class WorkerApiController extends Controller
         );
     }
 
-    public function accountInf(Request $request){
+    public function accountInf(Request $request)
+    {
         return response()->json($request->worker);
     }
 
     public function personalInf(Request $request)
     {
         $information = Profile::where('worker_id', $request->worker->id)->get(['passport', 'citizenship', 'citizenship', 'PNFL', 'INN', 'birthday', 'place_birthday', 'year_start', 'sex', 'family_status'])->first();
-//        dd($information);
         if ($information == null) return response()->json(['inform' => 'NULL']);
         return response()->json($information);
     }
@@ -195,15 +196,23 @@ class WorkerApiController extends Controller
         );
     }
 
-    public function createSuggestion(Request $request){
-        $suggestion=Suggestion::create([
-            'user_id'=>$request->worker->id,
-            'worker'=>1,
-            'suggestion'=>$request->suggestion,
+    public function createSuggestion(Request $request)
+    {
+        $suggestion = Suggestion::create([
+            'user_id' => $request->worker->id,
+            'worker' => 1,
+            'suggestion' => $request->suggestion,
         ]);
         return response()->json([
-            'message'=>"Спасибо, вы вносите большой вклад, в развитие платформы",
+            'message' => "Спасибо, вы вносите большой вклад, в развитие платформы",
         ]);
+    }
+
+
+    public function serverWorking()
+    {
+        $setting = Setting::where('name_setting', 'app_workers')->first();
+        return response()->json($setting);
     }
 
 

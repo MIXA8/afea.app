@@ -7,17 +7,16 @@
 @section('css')
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/workers/css/style_calendar.css')  }}">
-    <link rel="stylesheet" href="{{ asset('assets/workers/css/DataTable.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/workers/css/datatable-extension.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/workers/css/datatables.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/workers/css/DataTable.css') }}">
 @endsection
 
 
 @section('bread_crumbs')
 
     <div #poloska>
-        <div id="stud">Журнал учета посещяемости {{ $group->title }}</div>
+        <div id="stud">Журнал учета посещаемости {{ $group->title }}</div>
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
@@ -41,13 +40,13 @@
             </div>
             @if(count($group->studentsGroup)>0)
                 <div class="card-body">
-                    @if(Auth::guard('worker')->user()->department_worker->title == "Деканат"){
-                    <button class="btn btn-primary" type="button"
-                            onclick="window.location.href='{{ route('pass.edit',['group'=>$group]) }}'">Изменить
-                    </button>
-                    }
-                    <br>
-                    <br>
+                    @if(Auth::guard('worker')->user()->department_worker->title == "Деканат")
+                        <button class="btn btn-primary" type="button"
+                                onclick="window.location.href='{{ route('pass.edit',['group'=>$group]) }}'">Изменить
+                        </button>
+
+                        <br>
+                        <br>
                     @endif
                     <div class="dt-ext table-responsive" id="tablePDF">
                         <table class="display" id="export-button">

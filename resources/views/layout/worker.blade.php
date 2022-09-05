@@ -11,8 +11,8 @@
 
     @yield('meta')
     <meta name="author" content="dreamers">
-    <link rel="icon" href="{{ asset('assets/workers/images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/workers/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/workers/images/connect-errors/connect-info.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/workers/images/connect-errors/connect-info.png') }}" type="image/x-icon">
 
     <title>@yield('title')</title>
     <!-- Google font-->

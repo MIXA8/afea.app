@@ -31,38 +31,38 @@ class Pass extends Model
 
         if (count($pass) > 0) {
             if ($pass->first()->pass == 1) {
-                return '<option value="0" class="option_plus" style="background - color: red;" >+</option>
-                                  <option value="1" class="option_up" selected>НБ</option>
-                                  <option value="2" class="option_nup">УП</option>
-                                  <option value="3" class="option_op">ОП</option>';
+                return '<option value="0"  class="option_plus valueZero" style="background - color: red;" >+</option>
+                                  <option  value="1" class="option_up valueDangerNB" selected>НБ</option>
+                                  <option value="2" class="option_nup valueSuccessNB">УП</option>
+                                  <option value="3" class="option_op valueLate">ОП</option>';
             } elseif ($pass->first()->pass == 2) {
-                return '<option value="0" class="option_plus" style="background - color: red;" >+</option>
-                                  <option value="1" class="option_up" >НБ</option>
-                                  <option value="2" class="option_nup" selected>УП</option>
-                                  <option value="3" class="option_op">ОП</option>';
+                return '<option value="0" class="option_plus valueZero" style="background - color: red;" >+</option>
+                                  <option value="1" class="option_up valueDangerNB" >НБ</option>
+                                  <option value="2" class="option_nup valueSuccessNB" selected>УП</option>
+                                  <option value="3" class="option_op valueLate">ОП</option>';
             } elseif ($pass->first()->pass == 3) {
                 return '
-                                  <option value="0" class="option_plus" style="background - color: red;" >+</option>
-                                  <option value="1" class="option_up" >НБ</option>
-                                  <option value="2" class="option_nup" >УП</option>
-                                  <option value="3" class="option_op" selected>ОП</option>';
+                                  <option value="0" class="option_plus valueZero" style="background - color: red;" >+</option>
+                                  <option value="1" class="option_up valueDangerNB" >НБ</option>
+                                  <option value="2" class="option_nup valueSuccessNB" >УП</option>
+                                  <option value="3" class="option_op valueLate" selected>ОП</option>';
             } elseif ($pass->first()->pass == 0) {
                 return '
-                                  <option value="0" class="option_plus" style="background - color: red;" selected>+</option>
-                                  <option value="1" class="option_up" >НБ</option>
-                                  <option value="2" class="option_nup" >УП</option>
-                                  <option value="3" class="option_op" >ОП</option>';
+                                  <option value="0" class="option_plus  valueZero" style="background - color: red;" selected>+</option>
+                                  <option value="1" class="option_up valueDangerNB" >НБ</option>
+                                  <option value="2" class="option_nup valueSuccessNB" >УП</option>
+                                  <option value="3" class="option_op valueLate" >ОП</option>';
             } else {
-                return ' <option value="0" class="option_plus" style="background - color: red;" selected>+</option>
-                                  <option value="1" class="option_up" >НБ</option>
-                                  <option value="2" class="option_nup" >УП</option>
-                                  <option value="3" class="option_op" >ОП</option>';
+                return ' <option value="0" class="option_plus valueZero" style="background - color: red;" selected>+</option>
+                                  <option value="1" class="option_up valueDangerNB" >НБ</option>
+                                  <option value="2" class="option_nup valueSuccessNB" >УП</option>
+                                  <option value="3" class="option_op valueLate" >ОП</option>';
             }
         } else {
-            return ' <option value="0" class="option_plus" style="background - color: red;" selected>+</option>
-                                  <option value="1" class="option_up">НБ</option>
-                                  <option value="2" class="option_nup">УП</option>
-                                  <option value="3" class="option_op">ОП</option>';
+            return ' <option value="0" class="option_plus valueThird" style="background - color: red;" selected>+</option>
+                                  <option  value="1" class="option_up valueDangerNB">НБ</option>
+                                  <option value="2" class="option_nup valueSuccessNB">УП</option>
+                                  <option value="3" class="option_op valueLate">ОП</option>';
         }
     }
 

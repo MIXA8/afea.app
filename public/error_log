@@ -1,0 +1,1 @@
+[30-Aug-2022 10:30:33 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\API\Workers\WorkerApiController::createSuggestion() in /home/connectg/public_html/app/Http/Controllers/API/Workers/WorkerApiController.php on line 211

@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
 //Route::get('/worker/registration', 'App\Http\Controllers\Web\Workers\WorkerController@getForm')->name('worker.registration.form');
 //Route::post('/worker/registration', 'App\Http\Controllers\Web\Workers\WorkerController@Workerauthorize')->name('worker.registration');
 Route::get('/worker/authorization', 'App\Http\Controllers\Web\Workers\WorkerController@WorkerLoginForm')->name('worker.authorization.form');

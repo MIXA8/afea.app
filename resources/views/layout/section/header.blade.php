@@ -1,13 +1,13 @@
 <div class="page-header">
     <div class="header-wrapper row m-0">
-{{--        <div class="poisk">--}}
-{{--            <form action="">--}}
-{{--                <input class="input" type="text" placeholder="Поиск студентов">--}}
-{{--            </form>--}}
-{{--            <div class="searchbox">--}}
-{{--                <input type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass searchicon"></i>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        {{--        <div class="poisk">--}}
+        {{--            <form action="">--}}
+        {{--                <input class="input" type="text" placeholder="Поиск студентов">--}}
+        {{--            </form>--}}
+        {{--            <div class="searchbox">--}}
+        {{--                <input type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass searchicon"></i>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
 
 
         <form class="form-inline search-full col" action="#" method="get">
@@ -25,9 +25,9 @@
             </div>
         </form>
         <div class="header-logo-wrapper col-auto p-0">
-            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid"
-                                                                src="{{ asset('assets/workers/images/our_logo.png')}}"
-                                                                alt=""></a>
+            <div class="logo-wrapper"><a href="#"><img class="img-fluid"
+                                                       src="{{ asset('assets/workers/images/our_logo.png')}}"
+                                                       alt=""></a>
 
             </div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle"
@@ -73,16 +73,20 @@
                     <div class="media profile-media"><img width="40" class="b-r-10"
                                                           src="{{ asset(Auth::guard('worker')->user()->img) }}"
                                                           alt="">
-                        <div class="media-body"><span>{{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->name  }} {{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->patronymic  }} </span>
-                            <p class="mb-0 font-roboto"> {{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->department_worker->title }} <i class="middle fa fa-angle-down"></i></p>
+                        <div class="media-body">
+                            <span>{{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->name  }} {{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->patronymic  }} </span>
+                            <p class="mb-0 font-roboto"> {{ \Illuminate\Support\Facades\Auth::guard('worker')->user()->department_worker->title }}
+                                <i class="middle fa fa-angle-down"></i></p>
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
                         <li><a href="#"><i data-feather="user"></i><span>Аккаунт </span></a></li>
                         <!-- <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                         <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li> -->
-                        <li><a href="{{ route('worker.setting') }}"><i data-feather="settings"></i><span>Настройки</span></a></li>
-                        <li><a href="{{ route('worker.logout') }}"><i data-feather="log-in"> </i><span>Выход</span></a></li>
+                        <li><a href="{{ route('worker.setting') }}"><i
+                                    data-feather="settings"></i><span>Настройки</span></a></li>
+                        <li><a href="{{ route('worker.logout') }}"><i data-feather="log-in"> </i><span>Выход</span></a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -107,4 +111,8 @@
                 yikes!
             </div></script>
     </div>
+    <div class="card-body" id="alert-table">
+
+    </div>
 </div>
+

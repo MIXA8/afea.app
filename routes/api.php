@@ -24,6 +24,8 @@ Route::post('student/auth', 'App\Http\Controllers\API\Students\StudentApiControl
 
 Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
 
+    Route::get('setting/server',[\App\Http\Controllers\API\Students\StudentApiController::class, 'serverWorking']);
+
     Route::post('timetable', [\App\Http\Controllers\API\Students\Standart\TimeTableStudentController::class, 'getLessonForWeek']);
 
     Route::post('personal/information', [StudentApiController::class, 'personalInf']);
@@ -55,6 +57,8 @@ Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
 Route::post('worker/login', [\App\Http\Controllers\API\Workers\WorkerApiController::class, 'WorkerLogin']);
 
 Route::group(['prefix' => 'worker','middleware'=>'worker_api'], function () {
+
+    Route::get('setting/server',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'serverWorking']);
 
     Route::post('change/login/password',[\App\Http\Controllers\API\Workers\WorkerApiController::class,'changeLoginAndPassword']);
 

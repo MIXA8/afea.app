@@ -15,20 +15,30 @@ class TimeTableStudentController extends Controller
         $date = Carbon::parse(Carbon::create($request->year, $request->month, $request->day));
         $weekFirstDay = Carbon::parse($date->startOfWeek());
         $weekLastDay = Carbon::parse($date->endOfWeek());
-        $timeTable = Timetable::with('subjectInf','workerInf')->where(
+        $timeTable = Timetable::with('subjectInf', 'workerInf')->where(
             'date', '>=', $weekFirstDay->format('Y-m-d')
         )->where(
-            'date','<',$weekLastDay->format('Y-m-d')
+            'date', '<', $weekLastDay->format('Y-m-d')
         )->where(
-            'delete','=',0
+            'delete', '=', 0
         )->where(
-            'group','=',$request->student->base_inf->group
-        )->orderBy('date','asc')->get();
-        if(count($timeTable)==0){
-                return response()->json(['answer'=>'null']);
+            'group', '=', $request->student->base_inf->group
+        )->orderBy('date', 'asc')->get();
+        if (count($timeTable) == 0) {
+            return response()->json(['answer' => 'null']);
+        }
+        for ($i = 0; $i < 6; $i++) {
+            if ($i != 0) {
+                $weekFirstDay = $weekFirstDay->addDay(1);
             }
-        foreach ($timeTable as $lesson){
-            $tableLessonforWeek[]=new TimeTableResource($lesson);
+            $day = $timeTable->where('date', $weekFirstDay->format('Y-m-d'));
+            if (count($day) > 0) {
+                foreach ($day as $lesson) {
+                    $tableLessonforWeek[$i][] = new TimeTableResource($lesson);
+                }
+            } else {
+                $tableLessonforWeek[$i][] = 'null';
+            }
         }
         return response()->json($tableLessonforWeek);
     }

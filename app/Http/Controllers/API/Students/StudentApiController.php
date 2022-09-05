@@ -11,6 +11,7 @@ use App\Models\Base_student;
 use App\Models\Department;
 use App\Models\Post;
 use App\Models\Post_comments;
+use App\Models\Setting;
 use App\Models\Student;
 use App\Models\Suggestion;
 use App\Models\Worker;
@@ -158,6 +159,7 @@ class StudentApiController extends Controller
     public function changeLoginAndPassword(StudentChangeLP $request)
     {
         $validated = $request->validated();
+
         $student = Student::getTokenId($request->header('token'));
         $student = Student::find($student->id);
         $student->update(
@@ -268,6 +270,10 @@ class StudentApiController extends Controller
         ]);
     }
 
-
+    public function serverWorking()
+    {
+        $setting = Setting::where('name_setting', 'app_students')->first();
+        return response()->json($setting);
+    }
 
 }

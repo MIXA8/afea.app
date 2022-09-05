@@ -19,7 +19,7 @@ class WorkerAPIDenary
     public function handle(Request $request, Closure $next)
     {
         $worker=Worker::getTokenWorker($request->header('token'));
-        if($worker->worker_access_api('dean')){
+        if($worker->worker_access_api('dean') || $worker->department_worker->title == "Деканат"){
             $request->worker=$worker;
             return $next($request);
         };

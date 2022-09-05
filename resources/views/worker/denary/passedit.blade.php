@@ -5,24 +5,62 @@
 @endsection
 
 @section('title')
-    Журнал посещяемости
+    Журнал посещаемости
 @endsection
 
 
 @section('css')
+
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/workers/css/style_calendar.css')  }}">
-    <link rel="stylesheet" href="{{ asset('assets/workers/css/DataTable.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/workers/css/datatable-extension.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/workers/css/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/workers/css/DataTable.css') }}">
+    <style>
+        .alert-table {
+            display: none;
+        }
 
+        .valueZero {
+            background-color: #6c6c6c;
+            border: 1px solid #6c6c6c
+        }
+
+        .valueSuccessNB {
+            background-color: #92dc35;
+            border: 1px solid #92dc35;
+        }
+
+        .valueSuccessNB:hover {
+            box-shadow: 2px 2px 15px #92dc35;
+        }
+
+        .valueDangerNB {
+            background-color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .valueDangerNB:hover {
+            box-shadow: 2px 2px 15px #dc3545;
+        }
+
+        .valueLate {
+            background-color: #49a6e0;
+            border: 1px solid #49a6e0;
+        }
+
+        .valueLate:disabled:hover {
+            box-shadow: 2px 2px 15px #49a6e0;
+        }
+    </style>
 @endsection
 
 
 @section('bread_crumbs')
 
     <div #poloska>
-        <div id="stud">Журнал учета посещяемости {{ $group->title }}</div>
+        <div id="stud">Журнал учета посещаемости {{ $group->title }}</div>
         <div id="road">
             <i class="roadIcon" data-feather="home"></i>
             <a href="{{ route('worker.denary.index') }}">Главная &nbsp;</a>/
@@ -37,16 +75,21 @@
 
 
 @section('content')
+
     <div class="col-sm-12">
         <div class="card">
+
             <div class="card-header">
                 <input type="submit" value="Назад" id="btnBack" class="btnDay">
                 <input id="date" type="date" value="{{ $date }}">
                 <input type="submit" value="Вперед" id="btnNext" class="btnDay">
             </div>
+
             @if(count($group->studentsGroup)>0)
                 <div class="card-body">
-                    <button class="btn btn-primary" type="button" onclick="window.location.href='{{ route('pass.pdf',['group'=>$group]) }}'" >Распечатать</button>
+                    <button class="btn btn-primary" type="button"
+                            onclick="window.location.href='{{ route('pass.pdf',['group'=>$group]) }}'">Распечатать
+                    </button>
                     <br>
                     <br>
                     <div class="table-responsive">
@@ -56,35 +99,35 @@
                                 <thead>
                                 <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                        aria-sort="ascending"
                                         style="width: 174.288px;">ФИО студента
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending"
+
                                         style="width: 282.163px;">1 пара
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 123.85px;">
+                                        style="width: 123.85px;">
                                         2 пара
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 54.2125px;">
+                                        style="width: 54.2125px;">
                                         3 пара
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Start date: activate to sort column ascending"
+
                                         style="width: 120.312px;">4 пара
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Salary: activate to sort column ascending" style="width: 97.375px;">
+                                        style="width: 97.375px;">
                                         5 пара
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Salary: activate to sort column ascending" style="width: 97.375px;">
+                                        style="width: 97.375px;">
                                         Общее
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1"
-                                        aria-label="Salary: activate to sort column ascending" style="width: 97.375px;">
+                                        style="width: 97.375px;">
                                         За семестр
                                     </th>
                                 </tr>
@@ -96,11 +139,13 @@
                                             <a href="{{ route('worker.student.information',['id'=>$student->id]) }}"> {{ $student->name }} {{ $student->surname }} {{ $student->patronymic }}</a>
                                         </td>
                                         <td>
-                                            <select name="lesson" data-match="1" data-group="{{ $student->group }}"
+                                            <select name="lesson" data-match="1"
+                                                    data-group="{{ $student->group }}"
                                                     data-url="{{ route('worker.add.pass') }}"
                                                     data-student="{{ $student->id }}"
                                                     id="lesson"
-                                                    class="java">
+                                                    class="java"
+                                            >
                                                 @php
                                                     $match_1=$passes->where('student_id',$student->id)->where('lesson_part',1);
                                                 @endphp
@@ -176,6 +221,9 @@
     <!-- Скрипты для таблицы -->
     <script src="{{ asset('assets/workers/js/datatable/datatables/jquery.dataTables.min.js') }} "></script>
     <script src="{{ asset('assets/workers/js/datatable/datatables/datatable.custom.js') }} "></script>
+    <script src="{{ asset('assets/workers/js/datatable/datatables/dataTableJava.js') }} "></script>
+    <script src="{{ asset('assets/workers/js/dataTables.bootstrap4.min.js') }} "></script>
+    <script src="{{ asset('assets/workers/js/selectChangeClass.js') }} "></script>
     {{--    <script src="{{ asset('assets/workers/js/tooltip-init.js') }} "></script>--}}
 
     <script>

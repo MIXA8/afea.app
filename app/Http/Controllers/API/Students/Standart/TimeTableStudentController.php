@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class TimeTableStudentController extends Controller
 {
+    private $days_of_the_week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
     public function getLessonForWeek(Request $request)
     {
         $date = Carbon::parse(Carbon::create($request->year, $request->month, $request->day));
@@ -34,10 +36,10 @@ class TimeTableStudentController extends Controller
             $day = $timeTable->where('date', $weekFirstDay->format('Y-m-d'));
             if (count($day) > 0) {
                 foreach ($day as $lesson) {
-                    $tableLessonforWeek[$i][] = new TimeTableResource($lesson);
+                    $tableLessonforWeek[$this->days_of_the_week[$i]][] = new TimeTableResource($lesson);
                 }
             } else {
-                $tableLessonforWeek[$i][] = 'null';
+                $tableLessonforWeek[$this->days_of_the_week[$i]][] = 'null';
             }
         }
         return response()->json($tableLessonforWeek);

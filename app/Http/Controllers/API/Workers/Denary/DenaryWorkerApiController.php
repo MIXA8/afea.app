@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Workers\Denary;
 use App\Http\Controllers\API\Workers\Functions\getStudents;
 use App\Http\Controllers\API\Workers\WorkerApiController;
 use App\Models\Pass;
+use App\Models\Worker_history;
 use Illuminate\Http\Request;
 
 class DenaryWorkerApiController extends WorkerApiController
@@ -15,6 +16,12 @@ class DenaryWorkerApiController extends WorkerApiController
     {
         $message = $this->checkStudentRequestAttendances($request);
         foreach ($request->students as $student) {
+            Worker_history::create(
+                [
+                    'worker_id' => $request->worker->id,
+                    'history' => "Работник с id={$request->worker->id} поставил пропуск с id={$request->pass} студенту с id={$student}"
+                ]
+            );
             Pass::create(
                 [
                     'worker_id' => $request->worker->id,
@@ -42,6 +49,12 @@ class DenaryWorkerApiController extends WorkerApiController
             ->whereMonth('created_at', '=', date("m"))
             ->exists();
         if ($request_tab) {
+            Worker_history::create(
+                [
+                    'worker_id' => $request->worker->id,
+                    'history' => "Работник с id={$request->worker->id} поставил пропуск с id={$request->pass} студенту с id={$student}"
+                ]
+            );
             $delete = Pass::where('lesson_part', '=', $request->lesson_part)
                 ->where('group_id', '=', $request->group)
                 ->whereDay('created_at', '=', date("d"))
@@ -49,15 +62,14 @@ class DenaryWorkerApiController extends WorkerApiController
                 ->whereMonth('created_at', '=', date("m"))
                 ->update(
                     [
-                        'delete'=>'1'
+                        'delete' => '1'
                     ]
                 );
-            return ['message'=>'Данные пропусков перезаписаны'];
+            return ['message' => 'Данные пропусков перезаписаны'];
         } else {
-            return ['message'=>'Данные пропусков сохранены'];
+            return ['message' => 'Данные пропусков сохранены'];
         }
     }
-
 
 
 }
